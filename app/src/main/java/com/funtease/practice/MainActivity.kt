@@ -1,13 +1,9 @@
 package com.funtease.practice
 
-import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.speech.RecognizerIntent
 import android.view.Menu
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.funtease.practice.adapters.ViewPagerAdapter
 import com.funtease.practice.databinding.ActivityMainBinding
@@ -31,9 +27,10 @@ class MainActivity : AppCompatActivity() {
         homeFragment = HomeFragment()
         viewPagerAdapter.addFragment(homeFragment, "HOME")
         viewPagerAdapter.addFragment(HomeFragment(), "INBOX")
+        viewPagerAdapter.addFragment(HomeFragment(), "PROFILE")
 
         binding.pager.adapter = viewPagerAdapter
-
+        binding.pager.isUserInputEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.pager, true) { tab, position ->
             tab.text = viewPagerAdapter.getTitle(position)
             val badge = tab.orCreateBadge
@@ -64,11 +61,4 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-
-    fun displaySpeechRecognizer() {
-
-
-    }
-
-
 }
