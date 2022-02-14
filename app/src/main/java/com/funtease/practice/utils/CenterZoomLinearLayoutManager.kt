@@ -1,4 +1,4 @@
-package com.funtease.practice.views
+package com.funtease.practice.utils
 
 import android.content.Context
 import android.util.Log
