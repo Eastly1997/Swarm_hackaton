@@ -9,7 +9,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <include layout="@layout/common_search_bar"/>
 
             <TextView
                 android:layout_marginTop="15dp"
@@ -41,6 +40,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/background_round"
+                android:padding="10dp"
                 android:nestedScrollingEnabled="true"/>
 
             <include layout="@layout/common_loading"/>
