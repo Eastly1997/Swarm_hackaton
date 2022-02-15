@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -8,53 +9,95 @@
     </data>
 
     <RelativeLayout
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="?android:selectableItemBackgroundBorderless">
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
         <ImageView
             android:id="@+id/job_img"
             android:layout_width="125dp"
-            android:layout_height="match_parent"
-            android:background="@color/teal_700"/>
+            android:layout_height="80dp" />
 
-        <LinearLayout
-            android:layout_toEndOf="@id/job_img"
-            android:layout_marginStart="15dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/job_img"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/job_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="16sp"
+                android:text="@{JobTitleString}"
                 android:textColor="@color/black"
-                android:text="@{JobTitleString}"/>
+                android:textSize="18sp" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/purple_200"
-                android:text="tag, tag1, tagggg, tagging"/>
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duration: 10 months"/>
-            <View
-                android:layout_marginTop="5dp"
+                android:layout_below="@id/job_title"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/teal_700"/>
-            <TextView
+                app:singleLine="true"
+                android:textSize="10sp"
+                android:maxLines="2"
+                android:text="Tag | Tag | Taaaaaaaag"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <LinearLayout
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do..."/>
-        </LinearLayout>
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_map_pin" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="5.2 km"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_time" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="40 mins"
+                    android:textSize="10sp" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="5.0"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
     </RelativeLayout>
 
 </layout>

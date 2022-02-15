@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.funtease.practice.adapters.JobAdapter
-import com.funtease.practice.adapters.JobAdapterExplore
+import com.funtease.practice.adapters.JobExploreAdapter
 import com.funtease.practice.databinding.FragmentHomeBinding
 import com.funtease.practice.utils.CenterZoomLinearLayoutManager
 
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         with(binding.jobList) {
-            layoutManager = CenterZoomLinearLayoutManager(activity!!.baseContext, 1f, 0.175f)
+            layoutManager = CenterZoomLinearLayoutManager(requireActivity().baseContext, 1f, 0.175f)
             val jobList = ArrayList<String>()
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             val displayMetrics = DisplayMetrics()
             activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
             val width = displayMetrics.widthPixels
-            adapter = JobAdapter(jobList, width, activity!!)
+            adapter = JobAdapter(jobList, width, requireActivity())
             val helper: SnapHelper = LinearSnapHelper()
             helper.attachToRecyclerView(this)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
-            adapter = JobAdapterExplore(jobList)
+            adapter = JobExploreAdapter(jobList, requireActivity())
         }
     }
 }

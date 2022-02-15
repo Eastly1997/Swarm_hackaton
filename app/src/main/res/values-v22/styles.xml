@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.CheckBoxTheme" parent="android:Widget.DeviceDefault.Light.CompoundButton.RadioButton">
+        <item name="buttonTint">@drawable/radio_selector</item>
+    </style>
+</resources>

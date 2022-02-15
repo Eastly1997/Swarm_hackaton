@@ -2,10 +2,13 @@ package com.funtease.practice.utils
 
 import android.content.Context
 import android.content.res.Resources
-import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.funtease.practice.R
+
 
 class CommonUtils {
 
@@ -21,6 +24,16 @@ class CommonUtils {
         Glide.with(context)
             .load(url)
             .centerCrop()
+            .placeholder(R.color.teal_200)
+            .into(view)
+    }
+    fun loadCurvedImage(context: Context, url: String, view: ImageView, radius: Int) {
+        var requestOptions = RequestOptions()
+        requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(radius))
+        Glide.with(context)
+            .load(url)
+            .centerCrop()
+            .apply(requestOptions)
             .placeholder(R.color.teal_200)
             .into(view)
     }

@@ -4,7 +4,7 @@
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/teal_200"
+    android:background="@color/purple_700"
     android:paddingStart="@dimen/common_padding_activity_side"
     android:elevation="1dp">
 
@@ -62,6 +62,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_menu"
+        android:tint="@color/white"
         android:focusable="true"
         android:clickable="true"
         android:background="?android:selectableItemBackgroundBorderless"/>
