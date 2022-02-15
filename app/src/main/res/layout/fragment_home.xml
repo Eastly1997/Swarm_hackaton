@@ -36,14 +36,14 @@
                 android:textSize="24sp"
                 android:textColor="@color/black"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/job_list_common"
                 android:layout_marginTop="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:id="@+id/job_list_common"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_round"
-                android:padding="10dp"
-                android:nestedScrollingEnabled="true"/>
-
+                android:nestedScrollingEnabled="false"/>
             <include layout="@layout/common_loading"/>
         </LinearLayout>
 

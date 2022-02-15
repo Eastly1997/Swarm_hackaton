@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/background_round.xml" value="0.1" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/radio_selector.xml" value="0.163" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/rounded_view.xml" value="0.1665" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_map_view.xml" value="0.1" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/common_loading.xml" value="0.234375" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/common_search_bar.xml" value="0.15729166666666666" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/fragment_map.xml" value="0.1" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_job.xml" value="0.234375" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_job_explore.xml" value="0.4" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

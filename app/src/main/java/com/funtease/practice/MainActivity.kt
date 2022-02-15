@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.funtease.practice.adapters.ViewPagerAdapter
 import com.funtease.practice.databinding.ActivityMainBinding
 import com.funtease.practice.fragments.HomeFragment
+import com.funtease.practice.fragments.MapFragment
 import com.funtease.practice.fragments.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         homeFragment = HomeFragment()
         viewPagerAdapter.addFragment(homeFragment, "HOME")
-        viewPagerAdapter.addFragment(HomeFragment(), "INBOX")
+        viewPagerAdapter.addFragment(MapFragment(), "MAP")
         viewPagerAdapter.addFragment(ProfileFragment(), "PROFILE")
 
         binding.pager.adapter = viewPagerAdapter
