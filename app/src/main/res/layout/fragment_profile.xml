@@ -8,6 +8,13 @@
 
         <include layout="@layout/common_search_bar"/>
 
+        <CheckBox
+            style="@style/AppTheme.CheckBoxTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:focusable="false"
+            android:text="sample"/>
         <include layout="@layout/common_loading"/>
 
     </LinearLayout>

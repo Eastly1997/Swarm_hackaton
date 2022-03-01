@@ -28,10 +28,11 @@
                 android:id="@+id/job_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_dim"/>
+                android:background="@drawable/background_dim" />
             <LinearLayout
                 android:padding="10dp"
                 android:layout_alignParentBottom="true"

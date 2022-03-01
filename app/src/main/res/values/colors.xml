@@ -13,4 +13,6 @@
 
     <color name="background_dim">#33000000</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="cuisine_color1">#353535</color>
+    <color name="cuisine_color2">#555555</color>
 </resources>

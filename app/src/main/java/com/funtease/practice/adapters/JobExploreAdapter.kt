@@ -17,15 +17,20 @@ class JobExploreAdapter(var jobList: ArrayList<String>, val context : Context) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(jobList[position])
+        holder.bind(jobList[position], position)
 
     override fun getItemCount() = jobList.size
 
     inner class ViewHolder(private val binding: ItemJobExploreBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(job: String) {
+        fun bind(job: String, position: Int) {
             binding.jobTitleString = job;
-            val url = "https://www.philippinetourismusa.com/wp-content/uploads/2019/05/palawan-slider-min.jpg"
-            CommonUtils().loadCurvedImage(context, url, binding.jobImg, 25)
+            var url = "https://play-lh.googleusercontent.com/1Ye9cdoHkBuGegkuoyJ1q5HVMeDgZUbkRJcU_5P2W20-J90Oa9wrJ_euTBEu84dfnA"
+            when(position) {
+                0-> url = "https://play-lh.googleusercontent.com/1Ye9cdoHkBuGegkuoyJ1q5HVMeDgZUbkRJcU_5P2W20-J90Oa9wrJ_euTBEu84dfnA"
+                1-> url = "https://angelescity.ph/wp-content/uploads/cache/images/jollibee-logo/jollibee-logo-3567621404.jpg"
+                2-> url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiYP0YmAMbNsH0yTxQW9Uhwflndrs7p_COQpk5gvXVSIbdKicBW2dBJvCOR2NUZVsrHas&usqp=CAU"
+            }
+            CommonUtils().loadCurvedImage(context, url, binding.jobImg, 15)
         }
     }
 
