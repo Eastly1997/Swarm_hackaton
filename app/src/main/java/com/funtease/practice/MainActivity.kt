@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        setUpSearchBar()
     }
 
     private fun setUpSearchBar() {
@@ -125,4 +124,5 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
+
 }

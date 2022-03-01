@@ -29,7 +29,7 @@ class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val con
             val commonUtils = CommonUtils()
 
             if(position == 0 || position == jobList.size - 1) {
-                binding.jobCard.visibility =     View.INVISIBLE
+                binding.jobCard.visibility = View.INVISIBLE
                 params.width = commonUtils.convertDptoPx(40)
                 params.height = commonUtils.convertDptoPx(80)
                 binding.jobCard.layoutParams = params

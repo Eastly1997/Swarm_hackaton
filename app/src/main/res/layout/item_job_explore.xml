@@ -25,7 +25,7 @@
             android:layout_width="125dp"
             android:layout_height="80dp" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="10dp"
@@ -41,21 +41,23 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:layout_below="@id/job_title"
-                android:layout_width="match_parent"
-                app:singleLine="true"
-                android:textSize="10sp"
-                android:maxLines="2"
-                android:text="Tag | Tag | Taaaaaaaag"
-                android:layout_height="wrap_content">
-            </TextView>
-
-            <LinearLayout
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="center_vertical">
+                android:maxLines="2"
+                android:text="Tag | Tag | Taaaaaaaag"
+                android:textSize="10sp"
+                app:singleLine="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open until 9:00 PM"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|bottom">
 
                 <ImageView
                     android:layout_width="12dp"
@@ -71,7 +73,7 @@
 
                 <ImageView
                     android:layout_width="12dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="12dp"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/ic_time" />
 
@@ -97,7 +99,7 @@
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 
 </layout>

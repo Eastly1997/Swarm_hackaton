@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cuisine_card"
+        android:layout_margin="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="12dp">
+
+        <ImageView
+            android:id="@+id/cuisine_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/cuisine_color1"
+            android:padding="7dp"
+            android:foreground="?android:selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_dessert" />
+    </androidx.cardview.widget.CardView>
+</layout>

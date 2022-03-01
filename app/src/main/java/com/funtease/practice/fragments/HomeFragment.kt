@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.funtease.practice.CuisineModel
+import com.funtease.practice.R
+import com.funtease.practice.adapters.CuisineAdapter
 import com.funtease.practice.adapters.JobAdapter
 import com.funtease.practice.adapters.JobExploreAdapter
 import com.funtease.practice.databinding.FragmentHomeBinding
@@ -68,14 +71,32 @@ class HomeFragment : Fragment() {
         with(binding.jobListCommon) {
             layoutManager = LinearLayoutManager(activity)
             val jobList = ArrayList<String>()
-            jobList.add("SAMPLE")
-            jobList.add("SAMPLE")
-            jobList.add("SAMPLE")
+            jobList.add("Chowking")
+            jobList.add("Jollibee")
+            jobList.add("McDonald's")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             adapter = JobExploreAdapter(jobList, requireActivity())
+        }
+
+        with(binding.cuisineList) {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            val cuisineList = ArrayList<CuisineModel>()
+            cuisineList.add(CuisineModel("Desserts", R.drawable.ic_dessert))
+            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
+            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
+            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
+            cuisineList.add(CuisineModel("Desserts", R.drawable.ic_dessert))
+            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
+            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
+            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
+            cuisineList.add(CuisineModel("Desserts", R.drawable.ic_dessert))
+            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
+            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
+            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
+            adapter = CuisineAdapter(cuisineList, requireActivity())
         }
     }
 }
