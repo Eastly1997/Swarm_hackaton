@@ -26,4 +26,9 @@
         <item name="colorAccent">@color/white</item>
         <item name="android:statusBarColor">@color/white</item>
     </style>
+
+    <style name="TextHeader" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
