@@ -2,26 +2,31 @@ package com.funtease.practice.fragments
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.funtease.practice.CuisineModel
-import com.funtease.practice.R
-import com.funtease.practice.adapters.CuisineAdapter
 import com.funtease.practice.adapters.JobAdapter
-import com.funtease.practice.adapters.JobExploreAdapter
 import com.funtease.practice.databinding.FragmentHomeBinding
 import com.funtease.practice.utils.CenterZoomLinearLayoutManager
+import com.funtease.practice.utils.CommonUtils
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
 
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
+    private var mRewardedAd: RewardedAd? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?) : View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -31,6 +36,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
+        binding.displayAds.setOnClickListener {
+           displayAds()
+        }
+        binding.totalEarned = CommonUtils.instance.convertToAmount("0")
+        loadAds()
     }
 
 
@@ -67,36 +77,51 @@ class HomeFragment : Fragment() {
             })
             smoothScrollToPosition(1)
         }
+    }
 
-        with(binding.jobListCommon) {
-            layoutManager = LinearLayoutManager(activity)
-            val jobList = ArrayList<String>()
-            jobList.add("Chowking")
-            jobList.add("Jollibee")
-            jobList.add("McDonald's")
-            jobList.add("SAMPLE")
-            jobList.add("SAMPLE")
-            jobList.add("SAMPLE")
-            jobList.add("SAMPLE")
-            adapter = JobExploreAdapter(jobList, requireActivity())
+    fun loadAds() {
+//        val testDeviceIds = Arrays.asList("4F337F0EA1E0F9DF9AA7B1BDAA84B2D2")
+//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+//        MobileAds.setRequestConfiguration(configuration)
+        val adRequest = AdRequest.Builder().build()
+
+        RewardedAd.load(activity,"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mRewardedAd = null
+            }
+
+            override fun onAdLoaded(rewardedAd: RewardedAd) {
+                mRewardedAd = rewardedAd
+
+            }
+        })
+
+        mRewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                // Called when ad fails to show.
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                // Set the ad reference to null so you don't show the ad a second time.
+                mRewardedAd = null
+            }
         }
+    }
 
-        with(binding.cuisineList) {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            val cuisineList = ArrayList<CuisineModel>()
-            cuisineList.add(CuisineModel("Desserts", R.drawable.ic_dessert))
-            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
-            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
-            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
-            cuisineList.add(CuisineModel("Desserts", R.drawable.ic_dessert))
-            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
-            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
-            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
-            cuisineList.add(CuisineModel("Desserts", R.drawable.ic_dessert))
-            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
-            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
-            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
-            adapter = CuisineAdapter(cuisineList, requireActivity())
+    fun displayAds() {
+        if (mRewardedAd != null) {
+            mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
+                Log.d("GOOGLE_ADS", "The user earned the reward.")
+                binding.totalEarned = CommonUtils.instance.convertToAmount(rewardItem.amount.toString())
+                Log.d("ADS", "Amount: " + rewardItem.amount)
+                Log.d("ADS", "Type: " + rewardItem.type)
+            }
+
         }
     }
 }
