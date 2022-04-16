@@ -12,6 +12,10 @@ import com.funtease.practice.R
 
 class CommonUtils {
 
+    companion object {
+        val instance = CommonUtils()
+    }
+
     fun convertDptoPx(dp: Int) : Int {
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
     }
@@ -36,5 +40,9 @@ class CommonUtils {
             .apply(requestOptions)
             .placeholder(R.color.teal_200)
             .into(view)
+    }
+
+    fun convertToAmount(amount: String) :String {
+        return "₱" + String.format("%.2f", amount.toDouble())
     }
 }

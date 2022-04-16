@@ -26,7 +26,7 @@ class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val con
         fun bind(job: String, position: Int) {
 
             val params: RecyclerView.LayoutParams = binding.jobCard.layoutParams as RecyclerView.LayoutParams
-            val commonUtils = CommonUtils()
+            val commonUtils = CommonUtils.instance
 
             if(position == 0 || position == jobList.size - 1) {
                 binding.jobCard.visibility = View.INVISIBLE
@@ -41,6 +41,10 @@ class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val con
             }
 
             binding.jobTitleString = job;
+
+            binding.showAds = View.OnClickListener {
+
+            }
 
         }
     }

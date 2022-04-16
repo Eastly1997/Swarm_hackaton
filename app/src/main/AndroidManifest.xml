@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
 
     <application
         android:allowBackup="true"
@@ -12,41 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Practice">
-        <activity
-            android:name=".EmptyActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SplashScreenActivity"
-            android:exported="true"
-            android:theme="@style/SplashTheme">
-
-        </activity>
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".MainActivity"
+            android:hardwareAccelerated="true"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.SEARCH"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.appsearch"
-                android:resource="@xml/searchable" />
+            <meta-data android:name="android.app.appsearch"
+                android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name=".PhoneAuthenticationActivity"
-            android:exported="true"
-            android:launchMode="singleTop"></activity>
-
+            android:name=".SplashScreenActivity"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5106113422678211~7070909847"/>
     </application>
 
 </manifest>
