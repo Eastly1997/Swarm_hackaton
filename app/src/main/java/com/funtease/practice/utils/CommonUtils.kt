@@ -2,6 +2,7 @@ package com.funtease.practice.utils
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -31,6 +32,14 @@ class CommonUtils {
             .placeholder(R.color.teal_200)
             .into(view)
     }
+
+    fun loadImage(context: Context, url: Drawable, view: ImageView) {
+        Glide.with(context)
+            .load(url)
+            .centerCrop()
+            .placeholder(R.color.teal_200)
+            .into(view)
+    }
     fun loadCurvedImage(context: Context, url: String, view: ImageView, radius: Int) {
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(radius))
@@ -42,7 +51,7 @@ class CommonUtils {
             .into(view)
     }
 
-    fun convertToAmount(amount: String) :String {
-        return "₱" + String.format("%.2f", amount.toDouble())
+    fun convertToAmount(amount: Double) :String {
+        return "₱" + String.format("%.2f", amount)
     }
 }
