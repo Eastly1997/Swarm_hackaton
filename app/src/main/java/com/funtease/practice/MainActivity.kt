@@ -41,15 +41,15 @@ class MainActivity : AppCompatActivity() {
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
         homeFragment = HomeFragment()
         viewPagerAdapter.addFragment(homeFragment, "HOME")
-        viewPagerAdapter.addFragment(MapFragment(), "MAP")
+//        viewPagerAdapter.addFragment(MapFragment(), "MAP")
         viewPagerAdapter.addFragment(ProfileFragment(), "PROFILE")
 
         binding.pager.adapter = viewPagerAdapter
         binding.pager.isUserInputEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.pager, true) { tab, position ->
             tab.text = viewPagerAdapter.getTitle(position)
-            val badge = tab.orCreateBadge
-            badge.number = 99
+//            val badge = tab.orCreateBadge
+//            badge.number = 99
         }.attach()
 
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
@@ -124,5 +124,7 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
+
+
 
 }
