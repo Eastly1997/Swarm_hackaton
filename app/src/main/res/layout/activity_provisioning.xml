@@ -9,36 +9,69 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:background="@color/bluegreen">
+
+        <TextView
+            android:id="@+id/header_title"
+            style="@style/TextHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Your Journey starts here"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/header_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_title"
+            android:layout_marginBottom="25dp"
+            android:textColor="@color/white"
+            android:text="Your Journey starts here" />
+
         <LinearLayout
+            android:layout_below="@id/header_sub"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/rounded_view">
+            android:background="@drawable/rounded_view"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_ph_flag" />
+
             <TextView
+                style="@style/TextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+63"
-                style="@style/TextHeader" />
+                android:text="+63" />
+
             <EditText
-                android:layout_marginStart="5dp"
                 android:id="@+id/phone"
+                style="@style/TextHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:background="@color/transparent"
                 android:hint="9XXXXXXX"
-                style="@style/TextHeader"
                 android:inputType="number"
-                android:maxLength="10"
-                android:background="@color/transparent"/>
+                android:maxLength="10" />
 
         </LinearLayout>
+
         <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:onClick="@{verifyPhoneClickListener}"
-            android:text="Continue"/>
+            android:text="Continue"
+            android:textColor="@color/white_50"
+            android:textSize="17sp" />
     </RelativeLayout>
 </layout>

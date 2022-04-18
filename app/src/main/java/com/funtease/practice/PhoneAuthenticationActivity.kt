@@ -1,6 +1,7 @@
 package com.funtease.practice
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityPhoneAuthenticationBinding
     private lateinit var auth: FirebaseAuth
+    private var phoneNumber: String? = null
     private var storedVerificationId: String? = ""
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -24,11 +26,12 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneAuthenticationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        init()
+    }
 
+    private fun init() {
+        binding.resendOtp.text = "Sending verification code"
         auth = Firebase.auth
-        binding.verifyPhoneClickListener = View.OnClickListener {
-            startPhoneNumberVerification()
-        }
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -55,10 +58,8 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 // Show a message and update the UI
             }
 
-            override fun onCodeSent(
-                verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
+            override fun onCodeSent(verificationId: String,
+                                    token: PhoneAuthProvider.ForceResendingToken) {
                 // The SMS verification code has been sent to the provided phone number, we
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
@@ -66,15 +67,39 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 // Save verification ID and resending token so we can use them later
                 storedVerificationId = verificationId
                 resendToken = token
+                binding.resendOtp.isClickable = false
+                object : CountDownTimer(60000, 1000) {
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        binding.resendOtp.text = "Try again after: " + millisUntilFinished / 1000
+                    }
+
+                    override fun onFinish() {
+                        binding.resendOtp.text = "Resend OTP"
+                        binding.resendOtp.isClickable = true
+                    }
+                }.start()
+                Log.d("FIREBASE", "Code Sent")
+
             }
         }
-        binding.phone.requestFocus()
+        phoneNumber = intent.getStringExtra("mobile_number");
+        if(phoneNumber.isNullOrEmpty()) {
+            finish()
+            return
+        } else {
+            binding.phoneNumber.text = "+63 " + phoneNumber!!.substring(0,3)  + " " +
+                    phoneNumber!!.substring(3,6) + " " + phoneNumber!!.substring(6,10)
+            phoneNumber = "+63$phoneNumber"
+        }
+        startPhoneNumberVerification(phoneNumber!!)
     }
 
-    private fun startPhoneNumberVerification() {
+    private fun startPhoneNumberVerification(phoneNumber: String) {
         // [START start_phone_auth]
+        Log.d("FIREBASE", "PhoneNumber: $phoneNumber")
         val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(binding.phone.text.toString())       // Phone number to verify
+            .setPhoneNumber(phoneNumber)       // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
             .setActivity(this)                 // Activity (for callback binding)
             .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
@@ -89,10 +114,8 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         // [END verify_with_code]
     }
 
-    private fun resendVerificationCode(
-        phoneNumber: String,
-        token: PhoneAuthProvider.ForceResendingToken?
-    ) {
+    private fun resendVerificationCode(phoneNumber: String,
+        token: PhoneAuthProvider.ForceResendingToken?) {
         val optionsBuilder = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)       // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit

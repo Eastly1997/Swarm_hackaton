@@ -115,9 +115,9 @@ class HomeFragment : Fragment() {
         val adRequest = AdRequest.Builder().build()
 
         //Prod
-//        val adUnit = "ca-app-pub-5106113422678211/8889551687"
+        val adUnit = "ca-app-pub-5106113422678211/8889551687"
         //Testing
-        val adUnit = "ca-app-pub-3940256099942544/5224354917"
+//        val adUnit = "ca-app-pub-3940256099942544/5224354917"
         RewardedAd.load(activity, adUnit, adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("GOOGLE_ADS", "Error: " + adError.message)
