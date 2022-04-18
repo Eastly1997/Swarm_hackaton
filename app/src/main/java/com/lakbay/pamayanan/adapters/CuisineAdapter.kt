@@ -1,15 +1,13 @@
-package com.funtease.practice.adapters
+package com.lakbay.pamayanan.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
-import com.funtease.practice.CuisineModel
-import com.funtease.practice.R
-import com.funtease.practice.databinding.ItemCuisineBinding
-import com.funtease.practice.utils.CommonUtils
+import com.lakbay.pamayanan.CuisineModel
+import com.lakbay.pamayanan.R
+import com.lakbay.pamayanan.databinding.ItemCuisineBinding
 
 
 class CuisineAdapter(var cuisineList: ArrayList<CuisineModel>, val context: Context) : RecyclerView.Adapter<CuisineAdapter.ViewHolder>() {

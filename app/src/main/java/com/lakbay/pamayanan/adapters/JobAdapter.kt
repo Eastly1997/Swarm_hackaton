@@ -1,12 +1,12 @@
-package com.funtease.practice.adapters
+package com.lakbay.pamayanan.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.funtease.practice.databinding.ItemJobBinding
-import com.funtease.practice.utils.CommonUtils
+import com.lakbay.pamayanan.databinding.ItemJobBinding
+import com.lakbay.pamayanan.utils.CommonUtils
 
 
 class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val context: Context) : RecyclerView.Adapter<JobAdapter.ViewHolder>() {

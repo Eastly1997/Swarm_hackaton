@@ -1,4 +1,4 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import org.junit.Test
 

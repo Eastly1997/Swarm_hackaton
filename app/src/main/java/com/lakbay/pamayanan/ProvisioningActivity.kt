@@ -1,11 +1,11 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.funtease.practice.databinding.ActivityProvisioningBinding
+import com.lakbay.pamayanan.databinding.ActivityProvisioningBinding
 
 class ProvisioningActivity : AppCompatActivity() {
     lateinit var binding: ActivityProvisioningBinding

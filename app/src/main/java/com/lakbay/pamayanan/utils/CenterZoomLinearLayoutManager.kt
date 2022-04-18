@@ -1,4 +1,4 @@
-package com.funtease.practice.utils
+package com.lakbay.pamayanan.utils
 
 import android.content.Context
 import android.util.Log

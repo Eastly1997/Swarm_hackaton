@@ -1,4 +1,4 @@
-package com.funtease.practice.viewModels
+package com.lakbay.pamayanan.viewModels
 
 import android.graphics.drawable.Drawable
 import com.google.android.gms.ads.nativead.NativeAd

@@ -1,11 +1,11 @@
-package com.funtease.practice.fragments
+package com.lakbay.pamayanan.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.funtease.practice.databinding.FragmentProfileBinding
+import com.lakbay.pamayanan.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 

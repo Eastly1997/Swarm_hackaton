@@ -1,11 +1,10 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.funtease.practice.databinding.ActivityPhoneAuthenticationBinding
+import com.lakbay.pamayanan.databinding.ActivityPhoneAuthenticationBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*

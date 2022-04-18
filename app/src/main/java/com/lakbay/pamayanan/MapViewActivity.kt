@@ -1,9 +1,9 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import com.funtease.practice.databinding.ActivityMapViewBinding
+import com.lakbay.pamayanan.databinding.ActivityMapViewBinding
 
 class MapViewActivity : AppCompatActivity() {
 

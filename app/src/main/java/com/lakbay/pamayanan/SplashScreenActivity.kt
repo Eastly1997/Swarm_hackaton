@@ -1,4 +1,4 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import android.content.Intent
 import android.os.Bundle

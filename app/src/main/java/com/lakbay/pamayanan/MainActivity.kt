@@ -1,4 +1,4 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import android.app.Activity
 import android.app.SearchManager
@@ -16,11 +16,10 @@ import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.funtease.practice.adapters.ViewPagerAdapter
-import com.funtease.practice.databinding.ActivityMainBinding
-import com.funtease.practice.fragments.HomeFragment
-import com.funtease.practice.fragments.MapFragment
-import com.funtease.practice.fragments.ProfileFragment
+import com.lakbay.pamayanan.adapters.ViewPagerAdapter
+import com.lakbay.pamayanan.databinding.ActivityMainBinding
+import com.lakbay.pamayanan.fragments.HomeFragment
+import com.lakbay.pamayanan.fragments.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator

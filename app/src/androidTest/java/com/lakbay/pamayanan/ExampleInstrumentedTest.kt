@@ -1,4 +1,4 @@
-package com.funtease.practice
+package com.lakbay.pamayanan
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

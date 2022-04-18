@@ -1,4 +1,4 @@
-package com.funtease.practice.fragments
+package com.lakbay.pamayanan.fragments
 
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.funtease.practice.adapters.JobAdapter
-import com.funtease.practice.databinding.FragmentHomeBinding
-import com.funtease.practice.utils.CenterZoomLinearLayoutManager
-import com.funtease.practice.utils.CommonUtils
+import com.lakbay.pamayanan.adapters.JobAdapter
+import com.lakbay.pamayanan.databinding.FragmentHomeBinding
+import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
+import com.lakbay.pamayanan.utils.CommonUtils
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
