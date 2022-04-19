@@ -13,10 +13,11 @@
     <color name="background_card">#FFFFFF</color>
     <color name="white_50">#80FFFFFF</color>
     <color name="white_80">#CCFFFFFF</color>
-    <color name="black_80">#CC000000</color>
+    <color name="black_70">#B3000000</color>
 
     <color name="background_dim">#33000000</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="cuisine_color1">#353535</color>
     <color name="cuisine_color2">#555555</color>
+    <color name="warning">#a64452</color>
 </resources>

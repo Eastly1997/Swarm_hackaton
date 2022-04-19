@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="UserName"
+            type="String" />
+        <variable
+            name="WarningMessage"
+            type="String" />
+        <variable
+            name="CheckUser"
+            type="android.view.View.OnClickListener" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/common_padding_activity"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextHeader"
+            android:text="Heyy, Hero!"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextContent"
+            android:textColor="@color/black_70"
+            android:text="what should we call you?"/>
+        <EditText
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_view"
+            style="@style/TextHeader2"
+            android:hint="Eastly1997"
+            android:text="@={UserName}"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{WarningMessage}"
+            android:textStyle="bold"
+            android:textColor="@color/warning"/>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="bottom">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CommonButton"
+                android:text="Next"
+                android:onClick="@{CheckUser}"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

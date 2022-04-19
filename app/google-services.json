@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "204159535866",
+    "firebase_url": "https://swarm-hackathon-default-rtdb.firebaseio.com",
     "project_id": "swarm-hackathon",
     "storage_bucket": "swarm-hackathon.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:204159535866:android:5c0f1293adff6b1c055743",
+        "mobilesdk_app_id": "1:204159535866:android:0d10df2cc2811786055743",
         "android_client_info": {
-          "package_name": "com.funtease.practice"
+          "package_name": "com.lakbay.pamayanan"
         }
       },
       "oauth_client": [
