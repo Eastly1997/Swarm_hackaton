@@ -14,6 +14,11 @@ import com.lakbay.pamayanan.R
 class CommonUtils {
 
     companion object {
+        val FIREBASE_USER = "users_staging"
+        val FIREBASE_DONATION = "donation_staging"
+        val ENVIRONMENT = "environment"
+        val ENVIRONMENT_PRODUCTION = "production"
+        val ENVIRONMENT_STAGING = "staging"
         fun convertDptoPx(dp: Int) : Int {
             return (dp * Resources.getSystem().displayMetrics.density).toInt()
         }

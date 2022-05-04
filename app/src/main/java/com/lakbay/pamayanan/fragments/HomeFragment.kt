@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
         binding.individualEarned = CommonUtils.convertToAmount(individualAdGenerated)
 
         binding.totalEarned = CommonUtils
-            .convertToAmount(SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_CHARITY)
+            .convertToAmount(SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_TOTAL)
                 .toDouble())
 
         mainActivity = requireActivity() as MainActivity
@@ -177,7 +177,7 @@ class HomeFragment : Fragment() {
             mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
                 Log.d("GOOGLE_ADS", "The user earned the reward.")
                 Handler(Looper.getMainLooper()).postDelayed({
-                    mainActivity.updateDonation(rewardItem.amount.toDouble())
+                    mainActivity.updateDonation(rewardItem.amount.toDouble(), Donation.FIELD_GOAL_TREE)
                     Log.d("GOOGLE_ADS", "Amount: " + rewardItem.amount)
                     Log.d("GOOGLE_ADS", "Type: " + rewardItem.type)
                     requestRewardAds()

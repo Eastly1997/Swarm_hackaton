@@ -1,22 +1,33 @@
 package com.lakbay.pamayanan
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.lakbay.pamayanan.utils.CommonUtils
+import com.lakbay.pamayanan.utils.SharedPrefUtils
 
 
 class SplashScreenActivity : AppCompatActivity (){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val user = Firebase.auth.currentUser;
-        var intent: Intent
-        if (user != null) {
-            intent = Intent(this@SplashScreenActivity, MainActivity ::class.java)
-        } else {
+        val storageEnv = SharedPrefUtils.getStringData(this, CommonUtils.ENVIRONMENT)
+        val currentEnv = CommonUtils.ENVIRONMENT_STAGING
+        if(storageEnv != currentEnv) {
+            Firebase.auth.signOut();
             intent = Intent(this@SplashScreenActivity, ProvisioningActivity ::class.java)
+            SharedPrefUtils.saveData(this, CommonUtils.ENVIRONMENT, currentEnv)
+        } else {
+            intent = if (user != null) {
+                Intent(this@SplashScreenActivity, MainActivity ::class.java)
+            } else {
+                Intent(this@SplashScreenActivity, ProvisioningActivity ::class.java)
+            }
         }
+
         startActivity(intent)
         finish()
     }

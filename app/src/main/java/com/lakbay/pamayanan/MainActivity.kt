@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var launchSomeActivity: ActivityResultLauncher<Intent>
 
     private val db = Firebase.firestore
-    private val usersRef = db.collection("users")
-    private val donateRef = db.collection("donation").document("Juan Earth")
+    private val usersRef = db.collection(CommonUtils.FIREBASE_USER)
+    private val donateRef = db.collection(CommonUtils.FIREBASE_DONATION).document("Juan Earth")
     private var currentUser: User = User()
     private var currentDonation: Donation = Donation()
     var topList: ArrayList<User> = ArrayList<User>()
@@ -160,13 +160,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateDonation(amount: Double) {
+    fun updateDonation(amount: Double, selected: String) {
         Log.d("FIREBASE", "Update Amount: $amount")
         usersRef.document(currentUser.uid).update(User.FIELD_DONATED_AMOUNT, increment(amount * 0.75))
-        donateRef.update(Donation.FIELD_CHARITY, increment(amount * 0.75),
+        donateRef.update(selected, increment(amount * 0.75),
             Donation.FIELD_COMMUNITY, increment(amount * 0.15),
             Donation.FIELD_DEVELOPMENT, increment(amount * 0.1),
-            Donation.FIELD_TOTAL, increment(amount)).addOnSuccessListener {
+            Donation.FIELD_TOTAL, increment(amount * 0.75)).addOnSuccessListener {
             homeFragment.setlAdGenerated(amount * 0.75)
         }
     }
@@ -174,11 +174,14 @@ class MainActivity : AppCompatActivity() {
     private fun getTotalDonation() {
         donateRef.get().addOnSuccessListener {
             currentDonation = it.toObject<Donation>()!!
-            SharedPrefUtils.saveData(this, Donation.FIELD_CHARITY, currentDonation.charity.toFloat())
+            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_EDUCATION, currentDonation.goal_education.toFloat())
+            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_FOOD, currentDonation.goal_food.toFloat())
+            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_TREE, currentDonation.goal_tree.toFloat())
+            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_WATER, currentDonation.goal_water.toFloat())
             SharedPrefUtils.saveData(this, Donation.FIELD_DEVELOPMENT, currentDonation.development.toFloat())
             SharedPrefUtils.saveData(this, Donation.FIELD_COMMUNITY, currentDonation.community.toFloat())
             SharedPrefUtils.saveData(this, Donation.FIELD_TOTAL, currentDonation.total.toFloat())
-            homeFragment.binding.totalEarned = CommonUtils.convertToAmount(currentDonation.charity)
+            homeFragment.binding.totalEarned = CommonUtils.convertToAmount(currentDonation.total)
         }
     }
 
