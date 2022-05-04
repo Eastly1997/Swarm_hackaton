@@ -7,10 +7,12 @@ class User() {
         val FIELD_MOBILE_NUMBER = "mobileNumber"
         val FIELD_USER_NAME = "userName"
         val FIELD_DONATED_AMOUNT = "donatedAmount"
+        val FIELD_EARNING_AMOUNT = "earningAmount"
     }
     var uid: String = ""
     var img: String = ""
     var mobileNumber: String = ""
     var userName: String = ""
     var donatedAmount: Double = 0.00
+    var earningAmount: Double = 0.00
 }

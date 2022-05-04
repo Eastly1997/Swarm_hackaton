@@ -67,6 +67,13 @@ class SharedPrefUtils {
             return context.getSharedPreferences(PREF_APP, Context.MODE_PRIVATE)
                 .getFloat(key, 0f)
         }
+
+        fun clearData(context: Context) {
+            context.getSharedPreferences(PREF_APP, Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .apply()
+        }
     }
 
 }

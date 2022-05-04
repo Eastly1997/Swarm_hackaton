@@ -10,6 +10,9 @@
         <variable
             name="individualEarned"
             type="String" />
+        <variable
+            name="individualDonated"
+            type="String" />
     </data>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -31,23 +34,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="Your ad earnings" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="50sp"
-                        android:text="@{individualEarned}" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <LinearLayout
+                            android:layout_weight="0.99"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Donated"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="45sp"
+                                android:text="@{individualDonated}" />
+                        </LinearLayout>
+                        <View
+                            android:layout_weight="0.02"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/circular_view"
+                            android:backgroundTint="@color/black_40"/>
+                        <LinearLayout
+                            android:layout_weight="0.99"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Earned"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="45sp"
+                                android:text="@{individualEarned}" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
                     <Button
                         android:id="@+id/displayAds"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:textAllCaps="false"
                         style="@style/CommonButton"
                         android:text="Play ads to donate"/>
@@ -112,6 +154,21 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_friend" />
                 </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/donationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                style="@style/cardFeed">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/donationList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_goal"
+                    tools:itemCount="3"/>
 
             </androidx.cardview.widget.CardView>
 

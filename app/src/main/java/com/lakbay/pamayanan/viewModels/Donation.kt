@@ -11,7 +11,6 @@ class Donation {
         val FIELD_GOAL_WATER = "goal_water"
     }
 
-
     var total: Double = 0.00
     var community: Double = 0.00
     var development: Double = 0.00

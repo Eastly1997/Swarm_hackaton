@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="goal"
+            type="com.lakbay.pamayanan.viewModels.Goal" />
+    </data>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:weightSum="1"
+        android:foreground="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/goalName"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textAllCaps="true"
+            android:background="@color/warning"
+            android:textColor="@color/white"
+            android:text="@{goal.name}"
+            android:textStyle="bold"/>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingEnd="10dp">
+
+            <ProgressBar
+                android:id="@+id/donationProgress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="10000"
+                android:progress="100"
+                android:progressDrawable="@drawable/progress_curved_end"
+                android:progressTint="@color/warning"
+                android:textAlignment="center" />
+            <TextView
+                android:id="@+id/donationAmount"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="5dp"
+                android:gravity="center|start"
+                android:textColor="@color/white"
+                android:text="@{goal.getConvertedDonation}"
+                android:textStyle="bold"
+                android:textSize="17sp" />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/goalDonate"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/circular_view"
+            android:backgroundTint="@color/warning"
+            android:textColor="@color/white"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="+"/>
+    </LinearLayout>
+</layout>

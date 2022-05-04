@@ -4,5 +4,5 @@
     <dimen name="common_padding_sides">10dp</dimen>
     <dimen name="common_padding_top_bottom">5dp</dimen>
     <dimen name="common_padding_activity_side">15dp</dimen>
-        <dimen name="common_padding_activity">15dp</dimen>
+    <dimen name="common_padding_activity">15dp</dimen>
 </resources>

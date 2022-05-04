@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lakbay.pamayanan.databinding.ActivityRegisterUserBinding
+import com.lakbay.pamayanan.utils.CommonConstants
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
 import com.lakbay.pamayanan.viewModels.User
@@ -16,7 +17,7 @@ class RegisterUserActivity: AppCompatActivity() {
     private lateinit var binding: ActivityRegisterUserBinding
     private lateinit var uid: String
     private val db = Firebase.firestore
-    private val usersRef = db.collection(CommonUtils.FIREBASE_USER)
+    private val usersRef = db.collection(CommonConstants.FIREBASE_USER)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

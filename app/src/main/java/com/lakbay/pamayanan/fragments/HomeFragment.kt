@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -20,6 +19,7 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.lakbay.pamayanan.MainActivity
+import com.lakbay.pamayanan.adapters.GoalAdapter
 import com.lakbay.pamayanan.adapters.JobAdapter
 import com.lakbay.pamayanan.adapters.UserListAdapter
 import com.lakbay.pamayanan.databinding.FragmentHomeBinding
@@ -27,6 +27,7 @@ import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
 import com.lakbay.pamayanan.viewModels.Donation
+import com.lakbay.pamayanan.viewModels.Goal
 import com.lakbay.pamayanan.viewModels.User
 
 
@@ -105,6 +106,19 @@ class HomeFragment : Fragment() {
             smoothScrollToPosition(1)
         }
 
+        with(binding.donationList) {
+            val goalList = ArrayList<Goal>()
+            goalList.add(Goal("Zero Hunger", 0.7, "008000"))
+            goalList.add(Goal("No Poverty", 1.8, "006994"))
+            goalList.add(Goal("No Poverty", 50.9, "FDDA0D"))
+            goalList.add(Goal("Quality Education", 250.24, "FFA500"))
+            goalList.add(Goal("Clean Water", 1000.33, "008000"))
+            goalList.add(Goal("Climate Action", 5000.57, "006994"))
+            goalList.add(Goal("Life below waater", 15000.99, "FDDA0D"))
+            goalList.add(Goal("Life below waater", 1999999.99, "FFA500"))
+            adapter = GoalAdapter(goalList)
+        }
+
     }
 
     fun loadTopDonationList(userList: ArrayList<User>) {
@@ -177,7 +191,7 @@ class HomeFragment : Fragment() {
             mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
                 Log.d("GOOGLE_ADS", "The user earned the reward.")
                 Handler(Looper.getMainLooper()).postDelayed({
-                    mainActivity.updateDonation(rewardItem.amount.toDouble(), Donation.FIELD_GOAL_TREE)
+                    mainActivity.updateEarnedAmount(rewardItem.amount.toDouble(), Donation.FIELD_GOAL_TREE)
                     Log.d("GOOGLE_ADS", "Amount: " + rewardItem.amount)
                     Log.d("GOOGLE_ADS", "Type: " + rewardItem.type)
                     requestRewardAds()

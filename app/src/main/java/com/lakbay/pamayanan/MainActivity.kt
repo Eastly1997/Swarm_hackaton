@@ -31,6 +31,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.lakbay.pamayanan.utils.CommonConstants
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
 import com.lakbay.pamayanan.viewModels.Donation
@@ -45,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var launchSomeActivity: ActivityResultLauncher<Intent>
 
     private val db = Firebase.firestore
-    private val usersRef = db.collection(CommonUtils.FIREBASE_USER)
-    private val donateRef = db.collection(CommonUtils.FIREBASE_DONATION).document("Juan Earth")
+    private val usersRef = db.collection(CommonConstants.FIREBASE_USER)
+    private val donateRef = db.collection(CommonConstants.FIREBASE_DONATION).document("Juan Earth")
     private var currentUser: User = User()
     private var currentDonation: Donation = Donation()
     var topList: ArrayList<User> = ArrayList<User>()
@@ -152,23 +153,22 @@ class MainActivity : AppCompatActivity() {
             currentUser = it.toObject<User>()!!
             SharedPrefUtils.saveData(this, User.FIELD_USER_NAME, currentUser.userName)
             SharedPrefUtils.saveData(this, User.FIELD_DONATED_AMOUNT, currentUser.donatedAmount.toFloat())
+            SharedPrefUtils.saveData(this, User.FIELD_EARNING_AMOUNT, currentUser.earningAmount.toFloat())
             SharedPrefUtils.saveData(this, User.FIELD_UID, currentUser.uid)
             SharedPrefUtils.saveData(this, User.FIELD_IMG, currentUser.img)
             SharedPrefUtils.saveData(this, User.FIELD_MOBILE_NUMBER, currentUser.mobileNumber)
             homeFragment.individualAdGenerated = currentUser.donatedAmount
-            homeFragment.binding.individualEarned = CommonUtils.convertToAmount(currentUser.donatedAmount)
+            homeFragment.binding.individualDonated = CommonUtils.convertToAmount(currentUser.donatedAmount)
+            homeFragment.binding.individualEarned = CommonUtils.convertToAmount(currentUser.earningAmount)
         }
     }
 
-    fun updateDonation(amount: Double, selected: String) {
+    fun updateEarnedAmount(amount: Double) {
         Log.d("FIREBASE", "Update Amount: $amount")
-        usersRef.document(currentUser.uid).update(User.FIELD_DONATED_AMOUNT, increment(amount * 0.75))
-        donateRef.update(selected, increment(amount * 0.75),
-            Donation.FIELD_COMMUNITY, increment(amount * 0.15),
-            Donation.FIELD_DEVELOPMENT, increment(amount * 0.1),
-            Donation.FIELD_TOTAL, increment(amount * 0.75)).addOnSuccessListener {
-            homeFragment.setlAdGenerated(amount * 0.75)
-        }
+        usersRef.document(currentUser.uid).update(User.FIELD_EARNING_AMOUNT, increment(amount * 0.75))
+            .addOnSuccessListener {
+                homeFragment.setlAdGenerated(amount * 0.75)
+            }
     }
 
     private fun getTotalDonation() {

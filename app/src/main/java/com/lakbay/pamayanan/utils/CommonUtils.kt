@@ -9,16 +9,15 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.lakbay.pamayanan.R
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 
 class CommonUtils {
 
     companion object {
-        val FIREBASE_USER = "users_staging"
-        val FIREBASE_DONATION = "donation_staging"
-        val ENVIRONMENT = "environment"
-        val ENVIRONMENT_PRODUCTION = "production"
-        val ENVIRONMENT_STAGING = "staging"
+
         fun convertDptoPx(dp: Int) : Int {
             return (dp * Resources.getSystem().displayMetrics.density).toInt()
         }
@@ -66,7 +65,9 @@ class CommonUtils {
 
 
         fun convertToAmount(amount: Double) :String {
-            return "₱" + String.format("%.2f", amount)
+            val formatter: DecimalFormat = NumberFormat.getInstance(Locale.US) as DecimalFormat
+            formatter.applyPattern("#,###,###,###,###,###,##0.00")
+            return "₱" + formatter.format(amount)
         }
 
     }
