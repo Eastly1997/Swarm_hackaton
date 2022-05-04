@@ -2,4 +2,8 @@
     <string name="app_name">Juan Earth</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="verification_sending">Sending verification code</string>
+    <string name="verifiation_try_again">Pleas try again later</string>
+    <string name="verification_count_down">Try again after 00:</string>
+    <string name="verification_resend">Resend OTP</string>
 </resources>

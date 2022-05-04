@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     android:text="@{jobTitleString}"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,6 +62,7 @@
                         android:src="@drawable/ic_map_pin"
                         android:tint="@color/white"/>
                     <TextView
+                        android:id="@+id/location"
                         android:gravity="center_vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

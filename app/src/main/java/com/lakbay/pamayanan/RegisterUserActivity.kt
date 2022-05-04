@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.lakbay.pamayanan.databinding.ActivityRegisterUserBinding
+import com.lakbay.pamayanan.utils.SharedPrefUtils
+import com.lakbay.pamayanan.viewModels.User
 
 class RegisterUserActivity: AppCompatActivity() {
 
@@ -29,7 +31,7 @@ class RegisterUserActivity: AppCompatActivity() {
             finish()
         }
 
-        uid = intent.getStringExtra("user_id").toString()
+        uid = intent.getStringExtra(User.FIELD_UID).toString()
 
         binding.warningMessage = ""
         binding.checkUser = View.OnClickListener {
@@ -41,7 +43,8 @@ class RegisterUserActivity: AppCompatActivity() {
 
         usersRef.whereEqualTo("userName", binding.userName).get().addOnSuccessListener {
             if(it.isEmpty) {
-                usersRef.document(uid).update("userName", binding.userName).addOnSuccessListener {
+                usersRef.document(uid).update(User.FIELD_USER_NAME, binding.userName).addOnSuccessListener {
+                    SharedPrefUtils.saveData(this, User.FIELD_USER_NAME, binding.userName.toString())
                     startActivity(Intent(this, MainActivity ::class.java))
                     finishAffinity()
                 }

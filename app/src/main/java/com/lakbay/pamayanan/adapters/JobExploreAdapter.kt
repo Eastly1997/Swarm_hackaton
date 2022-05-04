@@ -30,7 +30,7 @@ class JobExploreAdapter(var jobList: ArrayList<String>, val context : Context) :
                 1-> url = "https://angelescity.ph/wp-content/uploads/cache/images/jollibee-logo/jollibee-logo-3567621404.jpg"
                 2-> url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiYP0YmAMbNsH0yTxQW9Uhwflndrs7p_COQpk5gvXVSIbdKicBW2dBJvCOR2NUZVsrHas&usqp=CAU"
             }
-            CommonUtils.instance.loadCurvedImage(context, url, binding.jobImg, 15)
+            CommonUtils.loadCurvedImage(context, url, binding.jobImg, 15)
         }
     }
 

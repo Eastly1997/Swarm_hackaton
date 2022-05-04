@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -11,6 +11,7 @@
         tools:context=".MainActivity">
 
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/purple_700"
@@ -38,15 +39,21 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_above="@id/tab_layout"
+            android:layout_below="@id/header"/>
 
         <com.google.android.material.tabs.TabLayout
+            android:layout_alignParentBottom="true"
             android:elevation="1dp"
             android:id="@+id/tab_layout"
             app:tabIndicatorGravity="top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+
+        <include
+            android:id="@+id/commonLoading"
+            layout="@layout/common_loading" />
+    </RelativeLayout>
 </layout>

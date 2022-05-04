@@ -14,44 +14,55 @@ import com.lakbay.pamayanan.R
 class CommonUtils {
 
     companion object {
-        val instance = CommonUtils()
-    }
+        fun convertDptoPx(dp: Int) : Int {
+            return (dp * Resources.getSystem().displayMetrics.density).toInt()
+        }
 
-    fun convertDptoPx(dp: Int) : Int {
-        return (dp * Resources.getSystem().displayMetrics.density).toInt()
-    }
+        fun convertPxtoDp(px: Int) : Int {
+            return (px / Resources.getSystem().displayMetrics.density).toInt()
+        }
 
-    fun convertPxtoDp(px: Int) : Int {
-        return (px / Resources.getSystem().displayMetrics.density).toInt()
-    }
+        fun loadImage(context: Context, url: String, view: ImageView) {
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.color.teal_200)
+                .into(view)
+        }
 
-    fun loadImage(context: Context, url: String, view: ImageView) {
-        Glide.with(context)
-            .load(url)
-            .centerCrop()
-            .placeholder(R.color.teal_200)
-            .into(view)
-    }
+        fun loadImage(context: Context, url: Drawable, view: ImageView) {
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.color.teal_200)
+                .into(view)
+        }
+        fun loadCurvedImage(context: Context, url: String, view: ImageView, radius: Int) {
+            var requestOptions = RequestOptions()
+            requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(radius))
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .apply(requestOptions)
+                .placeholder(R.color.teal_200)
+                .into(view)
+        }
 
-    fun loadImage(context: Context, url: Drawable, view: ImageView) {
-        Glide.with(context)
-            .load(url)
-            .centerCrop()
-            .placeholder(R.color.teal_200)
-            .into(view)
-    }
-    fun loadCurvedImage(context: Context, url: String, view: ImageView, radius: Int) {
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(radius))
-        Glide.with(context)
-            .load(url)
-            .centerCrop()
-            .apply(requestOptions)
-            .placeholder(R.color.teal_200)
-            .into(view)
-    }
+        fun loadCurvedImage(context: Context, url: Drawable, view: ImageView, radius: Int) {
+            var requestOptions = RequestOptions()
+            requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(radius))
+            Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .apply(requestOptions)
+                .placeholder(R.color.teal_200)
+                .into(view)
+        }
 
-    fun convertToAmount(amount: Double) :String {
-        return "₱" + String.format("%.2f", amount)
+
+        fun convertToAmount(amount: Double) :String {
+            return "₱" + String.format("%.2f", amount)
+        }
+
     }
 }

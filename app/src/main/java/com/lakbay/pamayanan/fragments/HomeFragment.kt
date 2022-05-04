@@ -1,22 +1,33 @@
 package com.lakbay.pamayanan.fragments
 
+import android.animation.ValueAnimator
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.lakbay.pamayanan.adapters.JobAdapter
-import com.lakbay.pamayanan.databinding.FragmentHomeBinding
-import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
-import com.lakbay.pamayanan.utils.CommonUtils
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.lakbay.pamayanan.MainActivity
+import com.lakbay.pamayanan.adapters.JobAdapter
+import com.lakbay.pamayanan.adapters.UserListAdapter
+import com.lakbay.pamayanan.databinding.FragmentHomeBinding
+import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
+import com.lakbay.pamayanan.utils.CommonUtils
+import com.lakbay.pamayanan.utils.SharedPrefUtils
+import com.lakbay.pamayanan.viewModels.Donation
+import com.lakbay.pamayanan.viewModels.User
 
 
 class HomeFragment : Fragment() {
@@ -24,21 +35,37 @@ class HomeFragment : Fragment() {
     lateinit var binding: FragmentHomeBinding
     private var mRewardedAd: RewardedAd? = null
     private var isDestroyed = false
-    lateinit var jobAdapter: JobAdapter
-    private var individualAdGenerated: Double = 0.00
+    var individualAdGenerated: Double = 0.00
+    private lateinit var mainActivity: MainActivity
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?) : View {
+                              savedInstanceState: Bundle?) : View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    private fun init() {
         binding.displayAds.setOnClickListener {
-           displayAds()
+            displayAds()
         }
-        binding.totalEarned = CommonUtils.instance.convertToAmount(individualAdGenerated)
+
+        individualAdGenerated = SharedPrefUtils
+            .getFloatData(requireContext(), User.FIELD_DONATED_AMOUNT).toDouble()
+
+        binding.individualEarned = CommonUtils.convertToAmount(individualAdGenerated)
+
+        binding.totalEarned = CommonUtils
+            .convertToAmount(SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_CHARITY)
+                .toDouble())
+
+        mainActivity = requireActivity() as MainActivity
+
         setUpRecyclerView()
         loadRewardAds()
     }
@@ -49,7 +76,7 @@ class HomeFragment : Fragment() {
             layoutManager = CenterZoomLinearLayoutManager(requireActivity().baseContext, 1f, 0.175f)
             val jobList = ArrayList<String>()
             jobList.add("SAMPLE")
-            jobList.add("SAMPLE")
+            jobList.add("TIMPLADO COFFEE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
@@ -76,6 +103,14 @@ class HomeFragment : Fragment() {
                 }
             })
             smoothScrollToPosition(1)
+        }
+
+    }
+
+    fun loadTopDonationList(userList: ArrayList<User>) {
+        binding.topDonationView.visibility = View.VISIBLE
+        with(binding.topUserList) {
+            adapter = UserListAdapter(userList, requireContext())
         }
     }
 
@@ -115,17 +150,23 @@ class HomeFragment : Fragment() {
         val adRequest = AdRequest.Builder().build()
 
         //Prod
-        val adUnit = "ca-app-pub-5106113422678211/8889551687"
+//        val adUnit = "ca-app-pub-5106113422678211/8889551687"
         //Testing
-//        val adUnit = "ca-app-pub-3940256099942544/5224354917"
+        val adUnit = "ca-app-pub-3940256099942544/5224354917"
+
         RewardedAd.load(activity, adUnit, adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("GOOGLE_ADS", "Error: " + adError.message)
+                binding.displayAds.background.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
+                binding.displayAds.isEnabled = false
+                binding.displayAds.text = "Ads not yet ready"
                 mRewardedAd = null
             }
 
             override fun onAdLoaded(rewardedAd: RewardedAd) {
                 mRewardedAd = rewardedAd
+                binding.displayAds.background.setColorFilter(Color.BLUE, PorterDuff.Mode.MULTIPLY)
+                binding.displayAds.isEnabled = true
 
             }
         })
@@ -135,14 +176,27 @@ class HomeFragment : Fragment() {
         if (mRewardedAd != null) {
             mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
                 Log.d("GOOGLE_ADS", "The user earned the reward.")
-                individualAdGenerated += rewardItem.amount
-                binding.totalEarned = CommonUtils.instance.convertToAmount(individualAdGenerated)
-                Log.d("GOOGLE_ADS", "Amount: " + rewardItem.amount)
-                Log.d("GOOGLE_ADS", "Type: " + rewardItem.type)
-                requestRewardAds()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    mainActivity.updateDonation(rewardItem.amount.toDouble())
+                    Log.d("GOOGLE_ADS", "Amount: " + rewardItem.amount)
+                    Log.d("GOOGLE_ADS", "Type: " + rewardItem.type)
+                    requestRewardAds()
+                }, 2000)
             }
         }
     }
 
-}
+    fun setlAdGenerated(amount: Double) {
+        individualAdGenerated += amount
 
+        val valueAnimator = ValueAnimator.ofFloat((individualAdGenerated - amount).toFloat(),
+            individualAdGenerated.toFloat())
+        valueAnimator.duration = 1500
+        valueAnimator.addUpdateListener { valueAnimator ->
+            binding.individualEarned = CommonUtils.convertToAmount(valueAnimator.animatedValue.toString().toDouble())
+        }
+        valueAnimator.start()
+
+    }
+
+}

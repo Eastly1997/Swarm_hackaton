@@ -1,6 +1,8 @@
 package com.lakbay.pamayanan
 
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -34,5 +36,14 @@ class ProvisioningActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        val newOverride = Configuration(newBase?.resources?.configuration)
+        if(newOverride.fontScale > 1.3) {
+            newOverride.fontScale = 1.3f
+            applyOverrideConfiguration(newOverride)
+        }
+        super.attachBaseContext(newBase)
     }
 }

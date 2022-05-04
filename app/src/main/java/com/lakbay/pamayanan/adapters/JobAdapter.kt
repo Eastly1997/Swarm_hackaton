@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
+import com.lakbay.pamayanan.R
 import com.lakbay.pamayanan.databinding.ItemJobBinding
 import com.lakbay.pamayanan.utils.CommonUtils
 
@@ -26,18 +28,22 @@ class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val con
         fun bind(job: String, position: Int) {
 
             val params: RecyclerView.LayoutParams = binding.jobCard.layoutParams as RecyclerView.LayoutParams
-            val commonUtils = CommonUtils.instance
 
             if(position == 0 || position == jobList.size - 1) {
                 binding.jobCard.visibility = View.INVISIBLE
-                params.width = commonUtils.convertDptoPx(40)
-                params.height = commonUtils.convertDptoPx(80)
+                params.width = CommonUtils.convertDptoPx(40)
+                params.height = CommonUtils.convertDptoPx(80)
                 binding.jobCard.layoutParams = params
             } else {
-                params.width = width - commonUtils.convertDptoPx(40)
+                params.width = width - CommonUtils.convertDptoPx(40)
                 binding.jobCard.layoutParams = params
                 val url = "https://www.philippinetourismusa.com/wp-content/uploads/2019/05/palawan-slider-min.jpg"
-                commonUtils.loadImage(context, url, binding.jobImg)
+                if(position != 1) {
+                    CommonUtils.loadImage(context, url, binding.jobImg)
+                } else {
+                    CommonUtils.loadImage(context,  AppCompatResources.getDrawable(context, R.drawable.timplado)!!, binding.jobImg)
+                    binding.location.text = "San Nicolas, Bulacan"
+                }
             }
 
             binding.jobTitleString = job;

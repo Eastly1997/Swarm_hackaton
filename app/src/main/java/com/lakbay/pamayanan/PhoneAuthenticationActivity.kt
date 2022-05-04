@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.lakbay.pamayanan.databinding.ActivityPhoneAuthenticationBinding
@@ -37,7 +39,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        binding.resendOtp.text = "Sending verification code"
+        binding.resendOtp.text = getString(R.string.verification_sending)
         auth = Firebase.auth
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -55,13 +57,16 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.e("FIREBASE", e.toString())
+                binding.commonLoading.visibility = View.GONE
+
+                Toast.makeText(this@PhoneAuthenticationActivity, e.toString(), Toast.LENGTH_LONG).show()
 
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
-                    binding.resendOtp.text = "Pleas try again later"
-
+                    binding.resendOtp.text = getString(R.string.verifiation_try_again)
+2
                 }
 
                 // Show a message and update the UI
@@ -74,17 +79,18 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 // by combining the code with a verification ID.
 
                 // Save verification ID and resending token so we can use them later
+                binding.commonLoading.visibility = View.GONE
                 storedVerificationId = verificationId
                 resendToken = token
                 binding.resendOtp.isClickable = false
                 object : CountDownTimer(60000, 1000) {
 
                     override fun onTick(millisUntilFinished: Long) {
-                        binding.resendOtp.text = "Try again after 00: " + millisUntilFinished / 1000
+                        binding.resendOtp.text = getString(R.string.verification_count_down) + String.format("%02d", millisUntilFinished / 1000)
                     }
 
                     override fun onFinish() {
-                        binding.resendOtp.text = "Resend OTP"
+                        binding.resendOtp.text = getString(R.string.verification_resend)
                         binding.resendOtp.isClickable = true
                     }
                 }.start()
@@ -110,12 +116,14 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         }
 
         binding.resendOtp.setOnClickListener {
+            binding.resendOtp.isClickable = false
             resendVerificationCode()
         }
     }
 
     private fun startPhoneNumberVerification(phoneNumber: String) {
         // [START start_phone_auth]
+        binding.commonLoading.visibility = View.VISIBLE
         Log.d("FIREBASE", "PhoneNumber: $phoneNumber")
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)       // Phone number to verify
@@ -140,9 +148,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
             .setActivity(this)                 // Activity (for callback binding)
             .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
-        if (resendToken != null) {
-            optionsBuilder.setForceResendingToken(resendToken) // callback's ForceResendingToken
-        }
+        optionsBuilder.setForceResendingToken(resendToken)
         PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
     }
 
@@ -153,9 +159,15 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     val user = task.result?.user
                     if(user!= null) registerUser(user)
+                    else {
+                        startActivity(Intent(this, MainActivity ::class.java))
+                        finishAffinity()
+                    }
                 } else {
                     // Sign in failed, display a message and update the UI
-                    Log.d("FIREBASE", "Sign in Failed")
+                    Log.d("FIREBASE", "Sign in Failed" + task.exception!!.message)
+
+                    Toast.makeText(this, task.exception!!.message, Toast.LENGTH_LONG).show()
 
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
@@ -172,15 +184,20 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             val returnedUser = it.toObject<User>()
             Log.d("FIREBASE", returnedUser.toString())
             if(returnedUser == null) {
-                val newUser: User = User()
+                val newUser = User()
                 newUser.mobileNumber = phoneNumber!!
                 newUser.uid = user.uid
                 usersRef.document(user.uid).set(newUser).addOnSuccessListener {
                     val intent = Intent(this@PhoneAuthenticationActivity, RegisterUserActivity::class.java)
-                    intent.putExtra("user_id", newUser.uid)
+                    intent.putExtra(User.FIELD_UID, newUser.uid)
                     startActivity(intent)
                     finish()
                 }
+            } else {
+                val intent = Intent(this@PhoneAuthenticationActivity, RegisterUserActivity::class.java)
+                intent.putExtra(User.FIELD_UID, user.uid)
+                startActivity(intent)
+                finish()
             }
         }
     }
