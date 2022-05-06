@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
     private var mRewardedAd: RewardedAd? = null
     private var isDestroyed = false
     var individualAdGenerated: Double = 0.00
+    var individualAdDonated: Double = 0.00
     private lateinit var mainActivity: MainActivity
 
 
@@ -57,9 +58,13 @@ class HomeFragment : Fragment() {
         }
 
         individualAdGenerated = SharedPrefUtils
+            .getFloatData(requireContext(), User.FIELD_EARNING_AMOUNT).toDouble()
+
+        individualAdDonated = SharedPrefUtils
             .getFloatData(requireContext(), User.FIELD_DONATED_AMOUNT).toDouble()
 
         binding.individualEarned = CommonUtils.convertToAmount(individualAdGenerated)
+        binding.individualDonated = CommonUtils.convertToAmount(individualAdDonated)
 
         binding.totalEarned = CommonUtils
             .convertToAmount(SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_TOTAL)
@@ -106,23 +111,13 @@ class HomeFragment : Fragment() {
             smoothScrollToPosition(1)
         }
 
-        with(binding.donationList) {
-            val goalList = ArrayList<Goal>()
-            goalList.add(Goal("Zero Hunger", 0.7, "008000"))
-            goalList.add(Goal("No Poverty", 1.8, "006994"))
-            goalList.add(Goal("No Poverty", 50.9, "FDDA0D"))
-            goalList.add(Goal("Quality Education", 250.24, "FFA500"))
-            goalList.add(Goal("Clean Water", 1000.33, "008000"))
-            goalList.add(Goal("Climate Action", 5000.57, "006994"))
-            goalList.add(Goal("Life below waater", 15000.99, "FDDA0D"))
-            goalList.add(Goal("Life below waater", 1999999.99, "FFA500"))
-            adapter = GoalAdapter(goalList)
-        }
+    }
 
+    fun loadGoalList(goals: ArrayList<Goal>) {
+        binding.donationList.adapter = GoalAdapter(goals, requireContext())
     }
 
     fun loadTopDonationList(userList: ArrayList<User>) {
-        binding.topDonationView.visibility = View.VISIBLE
         with(binding.topUserList) {
             adapter = UserListAdapter(userList, requireContext())
         }
@@ -191,7 +186,7 @@ class HomeFragment : Fragment() {
             mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
                 Log.d("GOOGLE_ADS", "The user earned the reward.")
                 Handler(Looper.getMainLooper()).postDelayed({
-                    mainActivity.updateEarnedAmount(rewardItem.amount.toDouble(), Donation.FIELD_GOAL_TREE)
+                    mainActivity.updateEarnedAmount(rewardItem.amount.toDouble())
                     Log.d("GOOGLE_ADS", "Amount: " + rewardItem.amount)
                     Log.d("GOOGLE_ADS", "Type: " + rewardItem.type)
                     requestRewardAds()

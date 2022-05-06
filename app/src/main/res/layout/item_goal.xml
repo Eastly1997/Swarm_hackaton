@@ -12,21 +12,19 @@
         android:weightSum="1"
         android:foreground="?android:selectableItemBackground"
         android:clickable="true"
-        android:focusable="true">
-        <TextView
-            android:id="@+id/goalName"
-            android:layout_width="80dp"
+        android:focusable="true"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/goalImg"
+            android:layout_width="75dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
             android:gravity="center"
-            android:maxLines="2"
-            android:textAllCaps="true"
-            android:background="@color/warning"
+            android:src="@drawable/goal1"
             android:textColor="@color/white"
-            android:text="@{goal.name}"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -39,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:max="10000"
-                android:progress="100"
+                android:progress="200"
                 android:progressDrawable="@drawable/progress_curved_end"
                 android:progressTint="@color/warning"
                 android:textAlignment="center" />
@@ -53,7 +51,7 @@
                 android:textColor="@color/white"
                 android:text="@{goal.getConvertedDonation}"
                 android:textStyle="bold"
-                android:textSize="17sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -61,11 +59,13 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/circular_view"
+            android:background="@drawable/view_circular"
             android:backgroundTint="@color/warning"
             android:textColor="@color/white"
             android:clickable="false"
             android:focusable="false"
-            android:text="+"/>
+            android:text="+"
+            android:textSize="25sp"
+            android:gravity="center"/>
     </LinearLayout>
 </layout>

@@ -1,8 +1,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:topRightRadius="8dp"
-                android:bottomRightRadius="8dp"/>
+            <corners android:topRightRadius="9dp"
+                android:bottomRightRadius="9dp"/>
             <solid android:color="@color/black_40"/>
         </shape>
     </item>
@@ -16,8 +16,8 @@
         <scale android:scaleWidth="100%">
             <shape>
                 <corners
-                    android:topRightRadius="8dp"
-                    android:bottomRightRadius="8dp"/>
+                    android:topRightRadius="9dp"
+                    android:bottomRightRadius="9dp"/>
                 <solid android:color="@color/bluegreen"/>
             </shape>
         </scale>

@@ -1,20 +1,14 @@
 package com.lakbay.pamayanan
 
 import android.app.Activity
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
 import android.speech.RecognizerIntent
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +29,7 @@ import com.lakbay.pamayanan.utils.CommonConstants
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
 import com.lakbay.pamayanan.viewModels.Donation
+import com.lakbay.pamayanan.viewModels.Goal
 import com.lakbay.pamayanan.viewModels.User
 
 class MainActivity : AppCompatActivity() {
@@ -47,10 +42,11 @@ class MainActivity : AppCompatActivity() {
 
     private val db = Firebase.firestore
     private val usersRef = db.collection(CommonConstants.FIREBASE_USER)
-    private val donateRef = db.collection(CommonConstants.FIREBASE_DONATION).document("Juan Earth")
+    private val goalRef = db.collection(CommonConstants.FIREBASE_GOAL)
     private var currentUser: User = User()
     private var currentDonation: Donation = Donation()
     var topList: ArrayList<User> = ArrayList<User>()
+    var goalList: ArrayList<Goal> = ArrayList<Goal>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,57 +91,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         getUserData()
-        getTotalDonation()
+        getGoals()
         getTopDonation(5)
         displayLoading(false)
-    }
-
-    private fun setUpSearchBar() {
-        val searchBar: View = binding.root.findViewById(R.id.search_layout)
-        val voice = searchBar.findViewById<ImageView>(R.id.search_voice)
-        val close = searchBar.findViewById<ImageView>(R.id.search_close)
-        searchText = searchBar.findViewById(R.id.search_text)
-
-        close.setOnClickListener {
-            Handler().postDelayed({
-                searchText.text.clear()
-            }, 180)
-        }
-
-        voice.setOnClickListener {
-
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                putExtra(
-                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-                )
-            }
-            // This starts the activity and populates the intent with the speech text.
-            launchSomeActivity.launch(intent)
-        }
-        searchText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                voice.visibility = if (s.isEmpty()) View.VISIBLE else View.GONE
-                close.visibility = if (s.isNotEmpty()) View.VISIBLE else View.GONE
-            }
-        })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.options_menu, menu)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        if (menu != null) {
-            (menu.findItem(R.id.menu_search).actionView as android.widget.SearchView).apply {
-                // Assumes current activity is the searchable activity
-                setSearchableInfo(searchManager.getSearchableInfo(componentName))
-                isIconifiedByDefault = false // Do not iconify the widget; expand it by default
-            }
-        }
-
-        return true
     }
 
     private fun getUserData() {
@@ -157,7 +105,8 @@ class MainActivity : AppCompatActivity() {
             SharedPrefUtils.saveData(this, User.FIELD_UID, currentUser.uid)
             SharedPrefUtils.saveData(this, User.FIELD_IMG, currentUser.img)
             SharedPrefUtils.saveData(this, User.FIELD_MOBILE_NUMBER, currentUser.mobileNumber)
-            homeFragment.individualAdGenerated = currentUser.donatedAmount
+            homeFragment.individualAdGenerated = currentUser.earningAmount
+            homeFragment.individualAdDonated = currentUser.donatedAmount
             homeFragment.binding.individualDonated = CommonUtils.convertToAmount(currentUser.donatedAmount)
             homeFragment.binding.individualEarned = CommonUtils.convertToAmount(currentUser.earningAmount)
         }
@@ -165,23 +114,26 @@ class MainActivity : AppCompatActivity() {
 
     fun updateEarnedAmount(amount: Double) {
         Log.d("FIREBASE", "Update Amount: $amount")
-        usersRef.document(currentUser.uid).update(User.FIELD_EARNING_AMOUNT, increment(amount * 0.75))
+        val finalAmount = amount * CommonConstants.AD_PERCENTAGE
+        usersRef.document(currentUser.uid).update(User.FIELD_EARNING_AMOUNT, increment(finalAmount))
             .addOnSuccessListener {
-                homeFragment.setlAdGenerated(amount * 0.75)
+                homeFragment.setlAdGenerated(finalAmount)
             }
     }
 
-    private fun getTotalDonation() {
-        donateRef.get().addOnSuccessListener {
-            currentDonation = it.toObject<Donation>()!!
-            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_EDUCATION, currentDonation.goal_education.toFloat())
-            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_FOOD, currentDonation.goal_food.toFloat())
-            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_TREE, currentDonation.goal_tree.toFloat())
-            SharedPrefUtils.saveData(this, Donation.FIELD_GOAL_WATER, currentDonation.goal_water.toFloat())
-            SharedPrefUtils.saveData(this, Donation.FIELD_DEVELOPMENT, currentDonation.development.toFloat())
-            SharedPrefUtils.saveData(this, Donation.FIELD_COMMUNITY, currentDonation.community.toFloat())
-            SharedPrefUtils.saveData(this, Donation.FIELD_TOTAL, currentDonation.total.toFloat())
-            homeFragment.binding.totalEarned = CommonUtils.convertToAmount(currentDonation.total)
+    private fun getGoals() {
+        goalRef.get().addOnSuccessListener {
+            var totalDonation = 0.00
+            for(document in it.documents) {
+                val goal = document.toObject<Goal>()
+                if(goal != null) {
+                    goalList.add(goal)
+                    totalDonation += goal.donation
+                }
+            }
+            homeFragment.loadGoalList(goalList)
+            homeFragment.binding.totalEarned = CommonUtils.convertToAmount(totalDonation)
+            SharedPrefUtils.saveData(this, Donation.FIELD_TOTAL, totalDonation.toFloat())
         }
     }
 
