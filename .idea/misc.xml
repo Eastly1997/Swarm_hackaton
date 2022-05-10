@@ -15,9 +15,12 @@
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/radio_selector.xml" value="0.163" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/rounded_view.xml" value="0.1665" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/splash_background.xml" value="0.174" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/view_circular.xml" value="0.153" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/view_circular_top.xml" value="0.153" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/view_half_circle_end.xml" value="0.239" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/view_half_circle_start.xml" value="0.239" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_empty.xml" value="0.10816588285592134" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_goal.xml" value="0.264" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_map_view.xml" value="0.1" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_phone_authentication.xml" value="0.136" />
@@ -36,6 +39,7 @@
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_goal.xml" value="0.4" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_job.xml" value="0.234375" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_job_explore.xml" value="0.3932291666666667" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_target.xml" value="0.264" />
       </map>
     </option>
   </component>

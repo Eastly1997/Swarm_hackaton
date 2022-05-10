@@ -94,6 +94,11 @@ class MainActivity : AppCompatActivity() {
         getGoals()
         getTopDonation(5)
         displayLoading(false)
+
+        val help: String? = null
+        if(help!!.length != 2) {
+            Log.e("ERROR", "not2")
+        }
     }
 
     private fun getUserData() {
@@ -122,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getGoals() {
-        goalRef.get().addOnSuccessListener {
+        goalRef.orderBy("id", Query.Direction.ASCENDING).get().addOnSuccessListener {
             var totalDonation = 0.00
             for(document in it.documents) {
                 val goal = document.toObject<Goal>()

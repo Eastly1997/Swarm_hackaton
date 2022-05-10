@@ -1,6 +1,7 @@
 package com.lakbay.pamayanan.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -8,6 +9,9 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.lakbay.pamayanan.GoalActivity
 import com.lakbay.pamayanan.R
 import com.lakbay.pamayanan.databinding.ItemGoalBinding
 import com.lakbay.pamayanan.utils.CommonUtils
@@ -41,27 +45,34 @@ class GoalAdapter(private val goalList: ArrayList<Goal>, private val context: Co
             DrawableCompat.setTint(progressDrawable, hexColor);
             binding.donationProgress.progressDrawable = progressDrawable
 
+            var img: Drawable? = null
             when (position) {
-                0 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal1)
-                1 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal2)
-                2 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal3)
-                3 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal4)
-                4 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal5)
-                5 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal6)
-                6 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal7)
-                7 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal8)
-                8 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal9)
-                9 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal10)
-                10 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal11)
-                11 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal12)
-                12 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal13)
-                13 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal14)
-                14 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal15)
-                15 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal16)
-                16 -> goal.img = AppCompatResources.getDrawable(context, R.drawable.goal17)
+                0 -> img = AppCompatResources.getDrawable(context, R.drawable.goal1)
+                1 -> img = AppCompatResources.getDrawable(context, R.drawable.goal2)
+                2 -> img = AppCompatResources.getDrawable(context, R.drawable.goal3)
+                3 -> img = AppCompatResources.getDrawable(context, R.drawable.goal4)
+                4 -> img = AppCompatResources.getDrawable(context, R.drawable.goal5)
+                5 -> img = AppCompatResources.getDrawable(context, R.drawable.goal6)
+                6 -> img = AppCompatResources.getDrawable(context, R.drawable.goal7)
+                7 -> img = AppCompatResources.getDrawable(context, R.drawable.goal8)
+                8 -> img = AppCompatResources.getDrawable(context, R.drawable.goal9)
+                9 -> img = AppCompatResources.getDrawable(context, R.drawable.goal10)
+                10 -> img = AppCompatResources.getDrawable(context, R.drawable.goal11)
+                11 -> img = AppCompatResources.getDrawable(context, R.drawable.goal12)
+                12 -> img = AppCompatResources.getDrawable(context, R.drawable.goal13)
+                13 -> img = AppCompatResources.getDrawable(context, R.drawable.goal14)
+                14 -> img = AppCompatResources.getDrawable(context, R.drawable.goal15)
+                15 -> img = AppCompatResources.getDrawable(context, R.drawable.goal16)
+                16 -> img = AppCompatResources.getDrawable(context, R.drawable.goal17)
             }
 
-            CommonUtils.loadImage(context, goal.img!!, binding.goalImg)
+            CommonUtils.loadImage(context, img!!, binding.goalImg)
+            binding.goalLayout.setOnClickListener {
+                val intent = Intent(context, GoalActivity::class.java)
+                intent.putExtra("GOAL", goal)
+                intent.putExtra("POSITION", position)
+                context.startActivity(intent)
+            }
         }
     }
 }

@@ -37,6 +37,8 @@
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ProvisioningActivity"
             android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".GoalActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
