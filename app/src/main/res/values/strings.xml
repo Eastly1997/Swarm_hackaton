@@ -4,6 +4,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="verification_sending">Sending verification code</string>
     <string name="verifiation_try_again">Pleas try again later</string>
-    <string name="verification_count_down">Try again after 00:</string>
+    <string name="verification_count_down">Request a new code in 00:</string>
     <string name="verification_resend">Resend OTP</string>
+    <string name="welcome_title_1">Welcome to Juan Earth</string>
+    <string name="welcome_title_2">How does it work?</string>
+    <string name="welcome_title_3">and donate the earnings!</string>
+    <string name="welcome_subtitle_1">The application that helps you save the environment.</string>
+    <string name="welcome_subtitle_2">Simply watch advertisements...</string>
+    <string name="welcome_subtitle_3">Accumulated earnings will be donated to non-government organizations in the Philippines.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Log In</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="hint_pin">000000</string>
+    <string name="code_not_received">Didn\'t Receive it?</string>
+    <string name="username_error">Username must be at least 6 character long</string>
+    <string name="phone_error">Mobile number must be valid.</string>
+    <string name="signup_title">Lets save the environment, \nevery Juan</string>
 </resources>

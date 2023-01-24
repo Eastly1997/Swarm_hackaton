@@ -19,15 +19,12 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.lakbay.pamayanan.MainActivity
-import com.lakbay.pamayanan.adapters.GoalAdapter
 import com.lakbay.pamayanan.adapters.JobAdapter
-import com.lakbay.pamayanan.adapters.UserListAdapter
 import com.lakbay.pamayanan.databinding.FragmentHomeBinding
 import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
 import com.lakbay.pamayanan.viewModels.Donation
-import com.lakbay.pamayanan.viewModels.Goal
 import com.lakbay.pamayanan.viewModels.User
 
 
@@ -81,8 +78,8 @@ class HomeFragment : Fragment() {
         with(binding.jobList) {
             layoutManager = CenterZoomLinearLayoutManager(requireActivity().baseContext, 1f, 0.175f)
             val jobList = ArrayList<String>()
-            jobList.add("SAMPLE")
-            jobList.add("TIMPLADO COFFEE")
+            jobList.add("REMINISCE PHOTOGRAPHY")
+            jobList.add("TIMPLADO STUDIO CAFE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
@@ -113,15 +110,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun loadGoalList(goals: ArrayList<Goal>) {
-        binding.donationList.adapter = GoalAdapter(goals, requireContext())
-    }
-
-    fun loadTopDonationList(userList: ArrayList<User>) {
-        with(binding.topUserList) {
-            adapter = UserListAdapter(userList, requireContext())
-        }
-    }
 
     override fun onDestroy() {
         isDestroyed = true

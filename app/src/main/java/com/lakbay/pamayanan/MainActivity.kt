@@ -12,7 +12,7 @@ import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.lakbay.pamayanan.adapters.ViewPagerAdapter
+import com.lakbay.pamayanan.adapters.ViewPagerMainAdapter
 import com.lakbay.pamayanan.databinding.ActivityMainBinding
 import com.lakbay.pamayanan.fragments.HomeFragment
 import com.lakbay.pamayanan.fragments.ProfileFragment
@@ -35,7 +35,7 @@ import com.lakbay.pamayanan.viewModels.User
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var viewPagerMainAdapter: ViewPagerMainAdapter
     private lateinit var homeFragment: HomeFragment
     private lateinit var searchText: EditText
     private lateinit var launchSomeActivity: ActivityResultLauncher<Intent>
@@ -53,16 +53,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        viewPagerMainAdapter = ViewPagerMainAdapter(supportFragmentManager, lifecycle)
         homeFragment = HomeFragment()
-        viewPagerAdapter.addFragment(homeFragment, "HOME")
+        viewPagerMainAdapter.addFragment(homeFragment, "HOME")
 //        viewPagerAdapter.addFragment(MapFragment(), "MAP")
-        viewPagerAdapter.addFragment(ProfileFragment(), "PROFILE")
+        viewPagerMainAdapter.addFragment(ProfileFragment(), "PROFILE")
 
-        binding.pager.adapter = viewPagerAdapter
+        binding.pager.adapter = viewPagerMainAdapter
         binding.pager.isUserInputEnabled = false
         TabLayoutMediator(binding.tabLayout, binding.pager, true) { tab, position ->
-            tab.text = viewPagerAdapter.getTitle(position)
+            tab.text = viewPagerMainAdapter.getTitle(position)
 //            val badge = tab.orCreateBadge
 //            badge.number = 99
         }.attach()
@@ -91,14 +91,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         getUserData()
-        getGoals()
-        getTopDonation(5)
         displayLoading(false)
 
-        val help: String? = null
-        if(help!!.length != 2) {
-            Log.e("ERROR", "not2")
-        }
     }
 
     private fun getUserData() {
@@ -126,32 +120,6 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun getGoals() {
-        goalRef.orderBy("id", Query.Direction.ASCENDING).get().addOnSuccessListener {
-            var totalDonation = 0.00
-            for(document in it.documents) {
-                val goal = document.toObject<Goal>()
-                if(goal != null) {
-                    goalList.add(goal)
-                    totalDonation += goal.donation
-                }
-            }
-            homeFragment.loadGoalList(goalList)
-            homeFragment.binding.totalEarned = CommonUtils.convertToAmount(totalDonation)
-            SharedPrefUtils.saveData(this, Donation.FIELD_TOTAL, totalDonation.toFloat())
-        }
-    }
-
-    private fun getTopDonation(limit: Int) {
-        usersRef.orderBy(User.FIELD_DONATED_AMOUNT, Query.Direction.DESCENDING)
-            .limit(limit.toLong()).get().addOnSuccessListener {
-                for(document in it.documents) {
-                    topList.add(document.toObject<User>()!!)
-                    homeFragment.loadTopDonationList(topList)
-
-                }
-            }
-    }
 
     override fun attachBaseContext(newBase: Context?) {
         val newOverride = Configuration(newBase?.resources?.configuration)

@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.lakbay.pamayanan.databinding.ActivityPhoneAuthenticationBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -16,9 +15,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.lakbay.pamayanan.databinding.ActivityPhoneAuthenticationBinding
 import com.lakbay.pamayanan.utils.CommonConstants
-import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.viewModels.User
+import java.lang.StringBuilder
 import java.util.concurrent.TimeUnit
 
 class PhoneAuthenticationActivity : AppCompatActivity() {
@@ -52,7 +52,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
-                binding.verificationCode.setText(credential.smsCode)
+                binding.pin1.setText(credential.smsCode)
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -68,7 +68,6 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     binding.resendOtp.text = getString(R.string.verifiation_try_again)
-2
                 }
 
                 // Show a message and update the UI
@@ -100,7 +99,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
             }
         }
-        phoneNumber = intent.getStringExtra("mobile_number");
+        phoneNumber = intent.getStringExtra(User.FIELD_MOBILE_NUMBER);
         if(phoneNumber.isNullOrEmpty()) {
             finish()
             return
@@ -111,9 +110,9 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         }
         startPhoneNumberVerification(phoneNumber!!)
 
-        binding.verificationCode.doOnTextChanged { text, start, before, count ->
-            if(!text.isNullOrEmpty() && text.length == 6) {
-                verifyPhoneNumberWithCode(storedVerificationId, text.toString())
+        binding.pin1.doOnTextChanged { text, start, before, count ->
+            if(!text.isNullOrEmpty() && binding.pin1.length() == 6) {
+                verifyPhoneNumberWithCode(storedVerificationId)
             }
         }
 
@@ -137,9 +136,8 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         // [END start_phone_auth]
     }
 
-    private fun verifyPhoneNumberWithCode(verificationId: String?, code: String) {
-        // [START verify_with_code]
-        val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
+    private fun verifyPhoneNumberWithCode(verificationId: String?) {
+        val credential = PhoneAuthProvider.getCredential(verificationId!!, binding.pin1.text.toString())
         // [END verify_with_code]
         signInWithPhoneAuthCredential(credential)
     }
@@ -196,7 +194,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                     finish()
                 }
             } else {
-                val intent = Intent(this@PhoneAuthenticationActivity, RegisterUserActivity::class.java)
+                val intent = Intent(this@PhoneAuthenticationActivity, MainActivity::class.java)
                 intent.putExtra(User.FIELD_UID, user.uid)
                 startActivity(intent)
                 finish()

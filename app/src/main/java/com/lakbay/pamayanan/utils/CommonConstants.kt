@@ -11,5 +11,7 @@ class CommonConstants {
         val ENVIRONMENT_PRODUCTION = "production"
         val ENVIRONMENT_STAGING = "staging"
         val AD_PERCENTAGE = 0.75
+
+        val FONT_SCALE_LARGE = 1.3f
     }
 }

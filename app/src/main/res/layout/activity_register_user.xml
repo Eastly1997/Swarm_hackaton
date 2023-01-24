@@ -3,59 +3,139 @@
 
     <data>
         <variable
-            name="UserName"
-            type="String" />
-        <variable
             name="WarningMessage"
             type="String" />
         <variable
-            name="CheckUser"
+            name="ValidateInput"
             type="android.view.View.OnClickListener" />
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/common_padding_activity"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginTop="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextHeader"
-            android:text="Heyy, Hero!"/>
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextContent"
-            android:textColor="@color/black_70"
-            android:text="what should we call you?"/>
-        <EditText
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_view"
-            style="@style/TextHeader2"
-            android:hint="Eastly1997"
-            android:text="@={UserName}"/>
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{WarningMessage}"
-            android:textStyle="bold"
-            android:textColor="@color/warning"/>
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="bottom">
-            <Button
+            android:layout_height="match_parent"
+            android:padding="@dimen/common_padding_activity"
+            android:orientation="vertical"
+            android:background="@color/background">
+            <TextView
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextHeader"
+                android:text="@string/signup_title"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="37dp"
+                android:text="@string/sign_up"
+                style="@style/TextHeader2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/username"
+                style="@style/TextHeader3"/>
+
+            <EditText
+                android:id="@+id/userName"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_view"
+                android:maxLines="1"
+                android:inputType="text"
+                style="@style/TextHeader2"
+                android:hint="@string/username" />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{WarningMessage}"
+                style="@style/TextContent2"
+                android:gravity="end"
+                android:textStyle="bold"
+                android:textColor="@color/warning"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number"
+                style="@style/TextHeader3"/>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/rounded_view"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextHeader2"
+                    android:text="+63"/>
+                <EditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:layout_marginStart="8dp"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:inputType="number"
+                    style="@style/TextHeader2"
+                    android:hint="9XXXXXXXXX" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/phoneWarning"
+                style="@style/TextContent2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="end"
+                android:textColor="@color/warning"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/terms"
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextContent"
+                android:checked="true"
+                android:text="I accept the Terms and Conditions."/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_height="34dp"
+                android:layout_gravity="end"
+                android:background="@drawable/view_common_button"
                 style="@style/CommonButton"
-                android:text="Next"
-                android:onClick="@{CheckUser}"/>
+                android:text="Continue >"
+                android:onClick="@{ValidateInput}"/>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="bottom">
+                <Button
+                    android:layout_width="match_parent"
+                    style="@style/CommonButton"
+                    android:text="@string/login" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+        <include
+            android:id="@+id/loading"
+            layout="@layout/common_loading"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </layout>
