@@ -4,13 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lakbay.pamayanan.databinding.ItemJobExploreBinding
+import com.lakbay.pamayanan.databinding.ItemListRestaurantVerticalBinding
 import com.lakbay.pamayanan.utils.CommonUtils
 
-class JobExploreAdapter(var jobList: ArrayList<String>, val context : Context) : RecyclerView.Adapter<JobExploreAdapter.ViewHolder>() {
+class ListRestaurantVerticalAdapter(var jobList: ArrayList<String>, val context : Context) : RecyclerView.Adapter<ListRestaurantVerticalAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemJobExploreBinding.inflate(
+        val binding = ItemListRestaurantVerticalBinding.inflate(
             LayoutInflater.from(parent.context),
             parent, false)
         return ViewHolder(binding)
@@ -21,7 +21,7 @@ class JobExploreAdapter(var jobList: ArrayList<String>, val context : Context) :
 
     override fun getItemCount() = jobList.size
 
-    inner class ViewHolder(private val binding: ItemJobExploreBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemListRestaurantVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(job: String, position: Int) {
             binding.jobTitleString = job;
             var url = "https://play-lh.googleusercontent.com/1Ye9cdoHkBuGegkuoyJ1q5HVMeDgZUbkRJcU_5P2W20-J90Oa9wrJ_euTBEu84dfnA"

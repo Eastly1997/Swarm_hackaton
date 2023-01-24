@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.lakbay.pamayanan.R
-import com.lakbay.pamayanan.databinding.ItemJobBinding
+import com.lakbay.pamayanan.databinding.ItemAdsInternalBinding
 import com.lakbay.pamayanan.utils.CommonUtils
 
 
-class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val context: Context) : RecyclerView.Adapter<JobAdapter.ViewHolder>() {
+class AdsInternalAdapter(var jobList: ArrayList<String>, var width: Int, private val context: Context) : RecyclerView.Adapter<AdsInternalAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemJobBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = ItemAdsInternalBinding.inflate(LayoutInflater.from(parent.context),
             parent, false)
         return ViewHolder(binding)
     }
@@ -24,7 +24,7 @@ class JobAdapter(var jobList: ArrayList<String>, var width: Int, private val con
 
     override fun getItemCount() = jobList.size
 
-    inner class ViewHolder(private val binding: ItemJobBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemAdsInternalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(job: String, position: Int) {
 
             val params: RecyclerView.LayoutParams = binding.jobCard.layoutParams as RecyclerView.LayoutParams

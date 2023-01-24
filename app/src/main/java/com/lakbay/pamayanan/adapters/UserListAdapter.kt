@@ -3,15 +3,10 @@ package com.lakbay.pamayanan.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.common.internal.service.Common
 import com.lakbay.pamayanan.R
 import com.lakbay.pamayanan.databinding.ItemFriendBinding
-import com.lakbay.pamayanan.databinding.ItemJobBinding
-import com.lakbay.pamayanan.databinding.ItemJobExploreBinding
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.viewModels.User
 

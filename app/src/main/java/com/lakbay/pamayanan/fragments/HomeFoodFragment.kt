@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -18,29 +19,30 @@ import androidx.recyclerview.widget.SnapHelper
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.lakbay.pamayanan.CuisineModel
 import com.lakbay.pamayanan.MainActivity
+import com.lakbay.pamayanan.R
 import com.lakbay.pamayanan.adapters.AdsInternalAdapter
-import com.lakbay.pamayanan.databinding.FragmentHomeBinding
+import com.lakbay.pamayanan.adapters.CuisineAdapter
+import com.lakbay.pamayanan.adapters.ListRestaurantVerticalAdapter
+import com.lakbay.pamayanan.databinding.FragmentHomeFoodBinding
 import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
 import com.lakbay.pamayanan.utils.CommonUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
 import com.lakbay.pamayanan.viewModels.Donation
 import com.lakbay.pamayanan.viewModels.User
 
+class HomeFoodFragment : Fragment() {
 
-class HomeFragment : Fragment() {
-
-    lateinit var binding: FragmentHomeBinding
+    lateinit var binding: FragmentHomeFoodBinding
     private var mRewardedAd: RewardedAd? = null
-    private var isDestroyed = false
+    private lateinit var mainActivity: MainActivity
     var individualAdGenerated: Double = 0.00
     var individualAdDonated: Double = 0.00
-    private lateinit var mainActivity: MainActivity
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?) : View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        savedInstanceState: Bundle?): View {
+        binding = FragmentHomeFoodBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,11 +63,6 @@ class HomeFragment : Fragment() {
             .getFloatData(requireContext(), User.FIELD_DONATED_AMOUNT).toDouble()
 
         binding.individualEarned = CommonUtils.convertToAmount(individualAdGenerated)
-        binding.individualDonated = CommonUtils.convertToAmount(individualAdDonated)
-
-        binding.totalEarned = CommonUtils
-            .convertToAmount(SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_TOTAL)
-                .toDouble())
 
         mainActivity = requireActivity() as MainActivity
 
@@ -73,14 +70,43 @@ class HomeFragment : Fragment() {
         loadRewardAds()
     }
 
-
     private fun setUpRecyclerView() {
-        with(binding.jobList) {
+        setUpInternalAds()
+        setUpCuisine()
+        setUpVerticalRestaurant()
+    }
+
+    private fun setUpVerticalRestaurant() {
+        with(binding.listRestaurantVertical) {
+            val restaurantList = ArrayList<String>()
+            restaurantList.add("Timplad Studio Cafe")
+            restaurantList.add("Reminisce Photography")
+            restaurantList.add("Reminisce Events")
+            adapter = ListRestaurantVerticalAdapter(restaurantList, mainActivity)
+        }
+    }
+
+    private fun setUpCuisine() {
+        with(binding.listCuisine) {
+            val cuisineList = ArrayList<CuisineModel>();
+            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
+            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
+            cuisineList.add(CuisineModel("Dessert", R.drawable.ic_dessert))
+            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
+            cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
+            cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
+            cuisineList.add(CuisineModel("Dessert", R.drawable.ic_dessert))
+            cuisineList.add(CuisineModel("Donut", R.drawable.ic_donut))
+            adapter = CuisineAdapter(cuisineList, mainActivity)
+        }
+    }
+    private fun setUpInternalAds() {
+        with(binding.listAdsInternal) {
             layoutManager = CenterZoomLinearLayoutManager(requireActivity().baseContext, 1f, 0.175f)
             val jobList = ArrayList<String>()
             jobList.add("REMINISCE PHOTOGRAPHY")
             jobList.add("TIMPLADO STUDIO CAFE")
-            jobList.add("SAMPLE")
+            jobList.add("REMINISCE PHOTOGRAPHY")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
             jobList.add("SAMPLE")
@@ -107,13 +133,6 @@ class HomeFragment : Fragment() {
             })
             smoothScrollToPosition(1)
         }
-
-    }
-
-
-    override fun onDestroy() {
-        isDestroyed = true
-        super.onDestroy()
     }
 
     private fun loadRewardAds() {
@@ -195,5 +214,4 @@ class HomeFragment : Fragment() {
         valueAnimator.start()
 
     }
-
 }
