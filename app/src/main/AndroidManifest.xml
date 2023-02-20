@@ -19,8 +19,6 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
             <meta-data android:name="android.app.appsearch"
                 android:resource="@xml/searchable"/>
@@ -29,7 +27,10 @@
             android:name=".SplashScreenActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".RegisterUserActivity"/>
         <activity android:name=".PhoneAuthenticationActivity"

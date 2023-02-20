@@ -4,8 +4,14 @@
 
     <data>
         <variable
-            name="JobTitleString"
+            name="NameString"
             type="String" />
+        <variable
+            name="RatingString"
+            type="String" />
+        <variable
+            name="HolderOnClick"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <RelativeLayout
@@ -18,36 +24,30 @@
         android:orientation="vertical"
         android:background="?android:selectableItemBackground"
         android:clickable="true"
+        android:onClick="@HolderOnClick"
         android:focusable="true">
 
         <ImageView
-            android:id="@+id/job_img"
-            android:layout_width="125dp"
-            android:layout_height="80dp"
-            android:src="@drawable/timplado"/>
+            android:id="@+id/restaurant_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/background_round"
+            android:padding="4dp"
+            android:src="@drawable/timplado" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/job_img"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/restaurant_img"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/job_title"
+                style="@style/TextHeader3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{JobTitleString}"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:text="Tag | Tag | Taaaaaaaag"
-                android:textSize="10sp"
-                app:singleLine="true" />
+                android:text="@{NameString}" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -57,24 +57,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|bottom">
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@drawable/ic_map_pin" />
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
                     android:text="5.2 km"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/ic_time" />
 
@@ -83,11 +77,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="40 mins"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/ic_star" />
 
@@ -95,10 +89,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
-                    android:text="5.0"
-                    android:textSize="10sp" />
+                    android:text="@{RatingString}"
+                    android:textSize="12sp" />
             </LinearLayout>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="Tag | Tag | Taaaaaaaag"
+                android:textSize="10sp"
+                app:singleLine="true" />
 
         </LinearLayout>
     </RelativeLayout>

@@ -12,13 +12,12 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.lakbay.pamayanan.databinding.ActivityPhoneAuthenticationBinding
-import com.lakbay.pamayanan.utils.CommonConstants
+import com.lakbay.pamayanan.utils.FirebaseUtils
 import com.lakbay.pamayanan.viewModels.User
-import java.lang.StringBuilder
 import java.util.concurrent.TimeUnit
 
 class PhoneAuthenticationActivity : AppCompatActivity() {
@@ -30,8 +29,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
-    private val db = Firebase.firestore
-    private val usersRef = db.collection(CommonConstants.FIREBASE_USER)
+    private lateinit var usersRef:CollectionReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +41,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     private fun init() {
         binding.resendOtp.text = getString(R.string.verification_sending)
         auth = Firebase.auth
+        usersRef = FirebaseUtils.getUserRef(this);
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {

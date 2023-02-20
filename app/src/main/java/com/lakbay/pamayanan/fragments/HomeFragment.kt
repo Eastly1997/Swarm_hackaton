@@ -55,10 +55,10 @@ class HomeFragment : Fragment() {
         }
 
         individualAdGenerated = SharedPrefUtils
-            .getFloatData(requireContext(), User.FIELD_EARNING_AMOUNT).toDouble()
+            .getFloatData(requireContext(), User.FIELD_LOYALTY_POINTS).toDouble()
 
         individualAdDonated = SharedPrefUtils
-            .getFloatData(requireContext(), User.FIELD_DONATED_AMOUNT).toDouble()
+            .getFloatData(requireContext(), User.FIELD_LOYALTY_POINTS).toDouble()
 
         binding.individualEarned = CommonUtils.convertToAmount(individualAdGenerated)
         binding.individualDonated = CommonUtils.convertToAmount(individualAdDonated)
@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
                 // Called when ad is shown.
             }
 
-            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
                 // Called when ad fails to show.
             }
 
@@ -151,7 +151,7 @@ class HomeFragment : Fragment() {
         //Testing
         val adUnit = "ca-app-pub-3940256099942544/5224354917"
 
-        RewardedAd.load(activity, adUnit, adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(mainActivity, adUnit, adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("GOOGLE_ADS", "Error: " + adError.message)
                 binding.displayAds.background.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
@@ -171,7 +171,7 @@ class HomeFragment : Fragment() {
 
     private fun displayAds() {
         if (mRewardedAd != null) {
-            mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
+            mRewardedAd!!.show(mainActivity) { rewardItem -> // Handle the reward.
                 Log.d("GOOGLE_ADS", "The user earned the reward.")
                 Handler(Looper.getMainLooper()).postDelayed({
                     mainActivity.updateEarnedAmount(rewardItem.amount.toDouble())

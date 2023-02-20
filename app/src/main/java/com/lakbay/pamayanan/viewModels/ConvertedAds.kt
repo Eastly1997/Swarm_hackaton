@@ -9,7 +9,7 @@ class ConvertedAds() {
     var headline: String? = ""
 
     constructor(ads: NativeAd) : this() {
-        mainImage = ads.mediaContent.mainImage
+        mainImage = ads.mediaContent?.mainImage
         headline = ads.headline
     }
 

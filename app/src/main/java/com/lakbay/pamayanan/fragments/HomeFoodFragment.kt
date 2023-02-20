@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.firebase.firestore.ktx.toObject
 import com.lakbay.pamayanan.CuisineModel
 import com.lakbay.pamayanan.MainActivity
 import com.lakbay.pamayanan.R
@@ -28,9 +28,11 @@ import com.lakbay.pamayanan.adapters.ListRestaurantVerticalAdapter
 import com.lakbay.pamayanan.databinding.FragmentHomeFoodBinding
 import com.lakbay.pamayanan.utils.CenterZoomLinearLayoutManager
 import com.lakbay.pamayanan.utils.CommonUtils
+import com.lakbay.pamayanan.utils.FirebaseUtils
 import com.lakbay.pamayanan.utils.SharedPrefUtils
-import com.lakbay.pamayanan.viewModels.Donation
+import com.lakbay.pamayanan.viewModels.Restaurant
 import com.lakbay.pamayanan.viewModels.User
+
 
 class HomeFoodFragment : Fragment() {
 
@@ -57,10 +59,10 @@ class HomeFoodFragment : Fragment() {
         }
 
         individualAdGenerated = SharedPrefUtils
-            .getFloatData(requireContext(), User.FIELD_EARNING_AMOUNT).toDouble()
+            .getFloatData(requireContext(), User.FIELD_LOYALTY_POINTS).toDouble()
 
         individualAdDonated = SharedPrefUtils
-            .getFloatData(requireContext(), User.FIELD_DONATED_AMOUNT).toDouble()
+            .getFloatData(requireContext(), User.FIELD_LOYALTY_POINTS).toDouble()
 
         binding.individualEarned = CommonUtils.convertToAmount(individualAdGenerated)
 
@@ -77,13 +79,22 @@ class HomeFoodFragment : Fragment() {
     }
 
     private fun setUpVerticalRestaurant() {
-        with(binding.listRestaurantVertical) {
-            val restaurantList = ArrayList<String>()
-            restaurantList.add("Timplad Studio Cafe")
-            restaurantList.add("Reminisce Photography")
-            restaurantList.add("Reminisce Events")
-            adapter = ListRestaurantVerticalAdapter(restaurantList, mainActivity)
-        }
+        val restaurantList = ArrayList<Restaurant>()
+        FirebaseUtils.getRestaurantRef(mainActivity)
+            .get().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.d(FirebaseUtils.TAG, "getRestaurant()")
+
+                    for (document in it.result) {
+                        restaurantList.add(document.toObject<Restaurant>())
+                    }
+                    binding.listRestaurantVertical.adapter = ListRestaurantVerticalAdapter(restaurantList, mainActivity)
+                } else {
+                    Log.d(FirebaseUtils.TAG, "Error getting documents: ", it.exception)
+                }
+            }
+
+
     }
 
     private fun setUpCuisine() {
@@ -147,7 +158,7 @@ class HomeFoodFragment : Fragment() {
                 // Called when ad is shown.
             }
 
-            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
                 // Called when ad fails to show.
             }
 
@@ -170,7 +181,7 @@ class HomeFoodFragment : Fragment() {
         //Testing
         val adUnit = "ca-app-pub-3940256099942544/5224354917"
 
-        RewardedAd.load(activity, adUnit, adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(mainActivity, adUnit, adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d("GOOGLE_ADS", "Error: " + adError.message)
                 binding.displayAds.background.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY)
@@ -190,7 +201,7 @@ class HomeFoodFragment : Fragment() {
 
     private fun displayAds() {
         if (mRewardedAd != null) {
-            mRewardedAd!!.show(activity) { rewardItem -> // Handle the reward.
+            mRewardedAd!!.show(mainActivity) { rewardItem -> // Handle the reward.
                 Log.d("GOOGLE_ADS", "The user earned the reward.")
                 Handler(Looper.getMainLooper()).postDelayed({
                     mainActivity.updateEarnedAmount(rewardItem.amount.toDouble())

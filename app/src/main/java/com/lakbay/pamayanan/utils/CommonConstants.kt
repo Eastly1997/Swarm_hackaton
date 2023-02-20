@@ -2,16 +2,12 @@ package com.lakbay.pamayanan.utils
 
 class CommonConstants {
     companion object {
-        //FIREBASE PATH
-        val FIREBASE_USER = "users_staging"
-        val FIREBASE_DONATION = "donation_staging"
-        val FIREBASE_GOAL= "goals_staging"
 
-        val ENVIRONMENT = "environment"
-        val ENVIRONMENT_PRODUCTION = "production"
-        val ENVIRONMENT_STAGING = "staging"
-        val AD_PERCENTAGE = 0.75
+        const val ENVIRONMENT = "environment"
+        const val ENVIRONMENT_PRODUCTION = "production"
+        const val ENVIRONMENT_STAGING = "staging"
+        const val AD_PERCENTAGE = 0.75
 
-        val FONT_SCALE_LARGE = 1.3f
+        const val FONT_SCALE_LARGE = 1.3f
     }
 }

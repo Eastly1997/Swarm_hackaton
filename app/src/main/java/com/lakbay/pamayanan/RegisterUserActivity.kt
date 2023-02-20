@@ -1,28 +1,21 @@
 package com.lakbay.pamayanan
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.doOnTextChanged
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.lakbay.pamayanan.databinding.ActivityRegisterUserBinding
-import com.lakbay.pamayanan.utils.CommonConstants
-import com.lakbay.pamayanan.utils.SharedPrefUtils
+import com.lakbay.pamayanan.utils.FirebaseUtils
 import com.lakbay.pamayanan.viewModels.User
-import java.lang.StringBuilder
 
 class RegisterUserActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterUserBinding
-    private lateinit var uid: String
-    private val db = Firebase.firestore
-    private val usersRef = db.collection(CommonConstants.FIREBASE_USER)
     private var isValidPhone = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +26,7 @@ class RegisterUserActivity: AppCompatActivity() {
     }
 
     private fun init() {
-        binding.phoneNumber.doOnTextChanged { text, start, before, count ->
+        binding.phoneNumber.doOnTextChanged { text, _, _, _ ->
             isValidPhone = text?.length == 10 && text[0] == '9'
         }
 
@@ -41,12 +34,12 @@ class RegisterUserActivity: AppCompatActivity() {
             binding.register.isClickable = isChecked
             binding.register.isEnabled = isChecked
 
-            val color = if(isChecked) resources.getColor(R.color.primary) else
-            resources.getColor(R.color.hint)
+            val color = if(isChecked) ContextCompat.getColor(this, R.color.primary) else
+                ContextCompat.getColor(this, R.color.hint)
 
             var buttonDrawable: Drawable = binding.register.background
-            buttonDrawable = DrawableCompat.wrap(buttonDrawable);
-            DrawableCompat.setTint(buttonDrawable, color);
+            buttonDrawable = DrawableCompat.wrap(buttonDrawable)
+            DrawableCompat.setTint(buttonDrawable, color)
 
 
         }
@@ -55,10 +48,11 @@ class RegisterUserActivity: AppCompatActivity() {
 
         binding.validateInput = View.OnClickListener {
             if(validateInput()) {
-                binding.loading.visibility = View.VISIBLE;
-                usersRef.whereEqualTo(User.FIELD_MOBILE_NUMBER, "+63${binding.phoneNumber.text}")
+                binding.loading.visibility = View.VISIBLE
+                FirebaseUtils.getUserRef(this)
+                    .whereEqualTo(User.FIELD_MOBILE_NUMBER, "+63${binding.phoneNumber.text}")
                     .get().addOnSuccessListener {
-                        binding.loading.visibility = View.GONE;
+                        binding.loading.visibility = View.GONE
                         if(it.isEmpty) {
                             // proceed to phone verification
                             val intent = Intent(this, PhoneAuthenticationActivity::class.java)
@@ -77,9 +71,9 @@ class RegisterUserActivity: AppCompatActivity() {
     }
     private fun validateInput() : Boolean {
         with(binding) {
-            if(userName.text.toString().isNullOrEmpty() || userName.text.toString().length < 6) {
+            if(userName.text.toString().isEmpty() || userName.text.toString().length < 6) {
                 warningMessage = getString(R.string.username_error)
-                return false;
+                return false
             } else {
                 warningMessage = ""
             }
