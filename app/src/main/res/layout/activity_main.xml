@@ -10,39 +10,12 @@
         android:background="@color/background"
         tools:context=".MainActivity">
 
-        <LinearLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/purple_700"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="2dp"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_near_map"
-                app:tint="@color/white" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Matimbo, City of Malolos"
-                android:textColor="@color/white"/>
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/ic_drop_down"
-                app:tint="@color/white" />
-        </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/tab_layout"
-            android:layout_below="@id/header"/>
+            android:layout_above="@id/tab_layout" />
 
         <com.google.android.material.tabs.TabLayout
             android:layout_alignParentBottom="true"

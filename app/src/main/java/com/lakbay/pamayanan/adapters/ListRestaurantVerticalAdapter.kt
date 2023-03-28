@@ -28,7 +28,7 @@ class ListRestaurantVerticalAdapter(var restaurantList: ArrayList<Restaurant>, v
         fun bind(restaurant: Restaurant) {
             Log.e("Restaurant", restaurant.img)
             binding.nameString = restaurant.name
-            binding.ratingString = restaurant.rating.toString()
+            binding.ratingString = restaurant.rating.toString() + " (100+)"
             CommonUtils.loadCurvedImage(context, FirebaseUtils.getRestaurantLogoRef(context, restaurant.uid) , binding.restaurantImg, 15)
 
             if(restaurant.isOpen())

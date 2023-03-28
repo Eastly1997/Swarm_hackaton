@@ -1,14 +1,27 @@
 package com.lakbay.pamayanan
 
+import android.Manifest.permission
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,11 +33,10 @@ import com.lakbay.pamayanan.adapters.ViewPagerMainAdapter
 import com.lakbay.pamayanan.databinding.ActivityMainBinding
 import com.lakbay.pamayanan.fragments.HomeFoodFragment
 import com.lakbay.pamayanan.fragments.ProfileFragment
-import com.lakbay.pamayanan.utils.CommonConstants
-import com.lakbay.pamayanan.utils.CommonUtils
-import com.lakbay.pamayanan.utils.FirebaseUtils
-import com.lakbay.pamayanan.utils.SharedPrefUtils
+import com.lakbay.pamayanan.utils.*
 import com.lakbay.pamayanan.viewModels.User
+import java.util.*
+import kotlin.concurrent.thread
 
 
 class MainActivity : BaseActivity() {
@@ -81,6 +93,19 @@ class MainActivity : BaseActivity() {
             getUserData()
         }
         displayLoading(false)
+
+        GeoLocationUtils.getCurrentLocation(this) {
+            location: Location? ->
+            if (location != null) {
+                updateLocation(location)
+            }
+        }
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        window.statusBarColor = ContextCompat.getColor(this ,R.color.primary)
     }
 
     private fun getUserData() {
@@ -111,4 +136,31 @@ class MainActivity : BaseActivity() {
     private fun displayLoading(isDisplay: Boolean) {
         binding.commonLoading.visibility = if(isDisplay) View.VISIBLE else View.GONE
     }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, try getting the location again
+                GeoLocationUtils.getCurrentLocation(this) { location: Location? ->
+                    if (location != null) {
+                        updateLocation(location)
+                    }
+                }
+            } else {
+                // Permission denied
+                // You can show an explanation or disable the location functionality here
+            }
+        }
+    }
+
+
+    fun updateLocation(location: Location) {
+        val userLocation = GeoLocationUtils.convertLocToAddress(this, location)
+        SharedPrefUtils.saveData(this, CommonConstants.USER_LOCATION, userLocation.toString())
+
+        homeFragment.binding.userAddress = userLocation.address
+    }
+
 }

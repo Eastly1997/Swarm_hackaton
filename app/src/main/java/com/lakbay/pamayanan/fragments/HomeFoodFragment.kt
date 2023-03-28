@@ -70,6 +70,7 @@ class HomeFoodFragment : Fragment() {
 
         setUpRecyclerView()
         loadRewardAds()
+        binding.userAddress = "Detecting.. "
     }
 
     private fun setUpRecyclerView() {
@@ -225,4 +226,5 @@ class HomeFoodFragment : Fragment() {
         valueAnimator.start()
 
     }
+
 }
