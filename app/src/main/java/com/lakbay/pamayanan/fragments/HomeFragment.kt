@@ -64,7 +64,8 @@ class HomeFragment : Fragment() {
         binding.individualDonated = CommonUtils.convertToAmount(individualAdDonated)
 
         binding.totalEarned = CommonUtils
-            .convertToAmount(SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_TOTAL)
+            .convertToAmount(
+                SharedPrefUtils.getFloatData(requireContext(), Donation.FIELD_TOTAL)
                 .toDouble())
 
         mainActivity = requireActivity() as MainActivity

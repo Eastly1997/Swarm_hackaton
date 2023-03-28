@@ -1,16 +1,9 @@
 package com.lakbay.pamayanan
 
-import android.R
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import com.lakbay.pamayanan.adapters.InfoGraphicsAdapter
 import com.lakbay.pamayanan.databinding.ActivityProvisioningBinding
 import com.lakbay.pamayanan.utils.DotIndicatorDecorator

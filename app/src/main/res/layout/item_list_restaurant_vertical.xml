@@ -50,6 +50,7 @@
                 android:text="@{NameString}" />
 
             <TextView
+                android:id="@+id/openHours"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Open until 9:00 PM"

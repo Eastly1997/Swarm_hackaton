@@ -20,16 +20,22 @@ class ListRestaurantVerticalAdapter(var restaurantList: ArrayList<Restaurant>, v
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(restaurantList[position], position)
+        holder.bind(restaurantList[position])
 
     override fun getItemCount() = restaurantList.size
 
     inner class ViewHolder(private val binding: ItemListRestaurantVerticalBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(restaurant: Restaurant, position: Int) {
+        fun bind(restaurant: Restaurant) {
             Log.e("Restaurant", restaurant.img)
             binding.nameString = restaurant.name
             binding.ratingString = restaurant.rating.toString()
-            CommonUtils.loadCurvedImage(context, FirebaseUtils.getRestaurantLogoRef(context, restaurant.id) , binding.restaurantImg, 15)
+            CommonUtils.loadCurvedImage(context, FirebaseUtils.getRestaurantLogoRef(context, restaurant.uid) , binding.restaurantImg, 15)
+
+            if(restaurant.isOpen())
+                binding.openHours.text = "Open until " + restaurant.getClosing()
+            else
+                binding.openHours.text = "Opening in " + restaurant.getOpening()
+
         }
     }
 

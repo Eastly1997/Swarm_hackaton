@@ -13,6 +13,8 @@ import com.lakbay.pamayanan.R
 import com.lakbay.pamayanan.glide.GlideApp
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.time.LocalDate
+import java.time.LocalTime
 import java.util.*
 
 
@@ -89,6 +91,13 @@ class CommonUtils {
             else
                 SharedPrefUtils.getStringData(context, CommonConstants.ENVIRONMENT_PRODUCTION)!!
         }
+
+
+        fun isWithinTimeRange(startTime: LocalTime, endTime: LocalTime): Boolean {
+            val currentTime = LocalTime.now()
+            return currentTime.isAfter(startTime) && currentTime.isBefore(endTime)
+        }
+
 
     }
 }

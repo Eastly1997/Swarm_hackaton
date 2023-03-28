@@ -99,7 +99,7 @@ class HomeFoodFragment : Fragment() {
 
     private fun setUpCuisine() {
         with(binding.listCuisine) {
-            val cuisineList = ArrayList<CuisineModel>();
+            val cuisineList = ArrayList<CuisineModel>()
             cuisineList.add(CuisineModel("Burger", R.drawable.ic_burger))
             cuisineList.add(CuisineModel("Cake", R.drawable.ic_cake))
             cuisineList.add(CuisineModel("Dessert", R.drawable.ic_dessert))

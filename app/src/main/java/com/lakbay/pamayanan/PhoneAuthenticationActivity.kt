@@ -109,7 +109,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         }
         startPhoneNumberVerification(phoneNumber!!)
 
-        binding.pin1.doOnTextChanged { text, start, before, count ->
+        binding.pin1.doOnTextChanged { text, _, _, _ ->
             if(!text.isNullOrEmpty() && binding.pin1.length() == 6) {
                 verifyPhoneNumberWithCode(storedVerificationId)
             }
