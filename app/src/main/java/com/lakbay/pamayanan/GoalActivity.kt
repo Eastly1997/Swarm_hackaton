@@ -5,8 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
+
 import com.google.android.material.appbar.AppBarLayout
 import com.lakbay.pamayanan.databinding.ActivityGoalBinding
 import com.lakbay.pamayanan.utils.CommonUtils
@@ -30,7 +29,7 @@ class GoalActivity :  AppCompatActivity() {
 
     }
 
-    fun init() {
+    private fun init() {
         var isShow = true
         var scrollRange = -1
         binding.appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { barLayout, verticalOffset ->

@@ -48,35 +48,15 @@ class RegisterUserActivity: AppCompatActivity() {
 
         binding.validateInput = View.OnClickListener {
             if(validateInput()) {
-                binding.loading.visibility = View.VISIBLE
-                FirebaseUtils.getUserRef(this)
-                    .whereEqualTo(User.FIELD_MOBILE_NUMBER, "+63${binding.phoneNumber.text}")
-                    .get().addOnSuccessListener {
-                        binding.loading.visibility = View.GONE
-                        if(it.isEmpty) {
-                            // proceed to phone verification
-                            val intent = Intent(this, PhoneAuthenticationActivity::class.java)
-                            intent.putExtra(User.FIELD_MOBILE_NUMBER, binding.phoneNumber.text.toString())
-                            intent.putExtra(User.FIELD_USER_NAME, binding.userName.text.toString())
-                            startActivity(intent)
-                        } else {
-                            // alert user already taken
-                            Toast.makeText(this,
-                                "Mobile number is already in use, would you like to login instead?",
-                                Toast.LENGTH_LONG).show()
-                        }
-                    }
+                val intent = Intent(this, PhoneAuthenticationActivity::class.java)
+                intent.putExtra(User.FIELD_MOBILE_NUMBER, binding.phoneNumber.text.toString())
+                intent.putExtra(User.FIELD_USER_NAME, binding.userName.text.toString())
+                startActivity(intent)
             }
         }
     }
     private fun validateInput() : Boolean {
         with(binding) {
-            if(userName.text.toString().isEmpty() || userName.text.toString().length < 6) {
-                warningMessage = getString(R.string.username_error)
-                return false
-            } else {
-                warningMessage = ""
-            }
 
             if(!isValidPhone) {
                 phoneWarning.visibility = View.VISIBLE
