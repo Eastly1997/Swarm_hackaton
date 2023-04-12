@@ -17,6 +17,8 @@ class FirebaseUtils {
         // PATH
         private const val USER = "users"
         private const val RESTAURANT = "restaurant"
+        private const val PRODUCT = "product"
+        private const val VARIATION = "_variation"
         private const val RESTAURANT_LOGO = "restaurant/logo"
 
 
@@ -30,6 +32,18 @@ class FirebaseUtils {
             return Firebase.firestore.collection(
                 (if(CommonUtils.getEnvironment(context) == CommonConstants.ENVIRONMENT_PRODUCTION)
                     PRODUCTION_PREFIX else STAGING_PREFIX ) + RESTAURANT)
+        }
+
+        fun getRestaurantProductRef(context: Context): CollectionReference {
+            return Firebase.firestore.collection(
+                (if(CommonUtils.getEnvironment(context) == CommonConstants.ENVIRONMENT_PRODUCTION)
+                    PRODUCTION_PREFIX else STAGING_PREFIX ) + PRODUCT)
+        }
+
+        fun getProductVariationRef(context: Context): CollectionReference {
+            return Firebase.firestore.collection(
+                (if(CommonUtils.getEnvironment(context) == CommonConstants.ENVIRONMENT_PRODUCTION)
+                    PRODUCTION_PREFIX else STAGING_PREFIX ) + PRODUCT + VARIATION)
         }
 
         fun getRestaurantLogoRef(context: Context, id: String): StorageReference {

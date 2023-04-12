@@ -70,6 +70,7 @@ class HomeFoodFragment : Fragment() {
 
         setUpRecyclerView()
         loadRewardAds()
+        binding.userAddress = "Detecting.. "
     }
 
     private fun setUpRecyclerView() {
@@ -88,6 +89,7 @@ class HomeFoodFragment : Fragment() {
                     for (document in it.result) {
                         restaurantList.add(document.toObject<Restaurant>())
                     }
+
                     binding.listRestaurantVertical.adapter = ListRestaurantVerticalAdapter(restaurantList, mainActivity)
                 } else {
                     Log.d(FirebaseUtils.TAG, "Error getting documents: ", it.exception)
@@ -225,4 +227,5 @@ class HomeFoodFragment : Fragment() {
         valueAnimator.start()
 
     }
+
 }
