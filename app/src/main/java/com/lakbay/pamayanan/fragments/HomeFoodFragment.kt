@@ -89,6 +89,7 @@ class HomeFoodFragment : Fragment() {
                     for (document in it.result) {
                         restaurantList.add(document.toObject<Restaurant>())
                     }
+
                     binding.listRestaurantVertical.adapter = ListRestaurantVerticalAdapter(restaurantList, mainActivity)
                 } else {
                     Log.d(FirebaseUtils.TAG, "Error getting documents: ", it.exception)

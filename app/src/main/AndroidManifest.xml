@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -16,38 +16,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Practice">
-        <activity android:name=".MainActivity"
-            android:hardwareAccelerated="true"
+        <activity
+            android:name=".ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.SEARCH"/>
-                </intent-filter>
-            <meta-data android:name="android.app.appsearch"
-                android:resource="@xml/searchable"/>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.appsearch"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterUserActivity"/>
-        <activity android:name=".PhoneAuthenticationActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ProvisioningActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".GoalActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".RegisterUserActivity" />
+        <activity
+            android:name=".PhoneAuthenticationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ProvisioningActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".GoalActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RestaurantDetailActivity"
+            android:theme="@style/Theme.translucent" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5106113422678211~7070909847"/>
+            android:value="ca-app-pub-5106113422678211~7070909847" />
     </application>
 
 </manifest>
