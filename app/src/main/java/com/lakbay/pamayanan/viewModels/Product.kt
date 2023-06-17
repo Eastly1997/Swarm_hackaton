@@ -21,6 +21,9 @@ class Product : Serializable {
 
 
     fun getPriceText() : String {
+        if(price == 0.0)
+            return "FREE"
+
         return CommonUtils.convertToAmount(price)
     }
 }

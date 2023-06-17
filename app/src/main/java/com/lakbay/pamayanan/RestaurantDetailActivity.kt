@@ -61,7 +61,7 @@ class RestaurantDetailActivity : AppCompatActivity() {
                         for(key in product.variation) {
                             variation[key]?.let { vary -> product.variationFinal.add(vary) }
                         }
-                        productList.add(document.toObject())
+                        productList.add(product)
                     }
 
                 } else {
@@ -77,6 +77,11 @@ class RestaurantDetailActivity : AppCompatActivity() {
         FirebaseUtils.getProductVariationRef(this).document(restaurant.uid)
             .get()
             .addOnSuccessListener {
+                if(!it.exists()) {
+                    getProduct()
+                    return@addOnSuccessListener
+                }
+
                 val restaurantVariation: ProductVariation= it.toObject<ProductVariation>()!!
                 for (variety in restaurantVariation.variation_final) {
                     variation[variety.id] = variety
@@ -104,7 +109,6 @@ class RestaurantDetailActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             onBackPressed()
         }
-
 
         binding.appbar.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (abs(verticalOffset) == appBarLayout.totalScrollRange) {

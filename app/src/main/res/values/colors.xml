@@ -2,6 +2,8 @@
 <resources>
 
     <color name="primary">#BC544B</color>
+    <color name="primary20">#33BC544B</color>
+    <color name="primary80">#CCBC544B</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

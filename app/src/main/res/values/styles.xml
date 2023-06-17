@@ -21,6 +21,8 @@
 
     <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimary">@color/primary</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -34,7 +36,7 @@
     <style name="TextHeader">
         <item name="android:textColor">@color/textColor</item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">38sp</item>
     </style>
 
     <style name="TextHeader2">
@@ -50,8 +52,26 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="TextHeaderItem">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
     <style name="TextContent">
-        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/montserrat_500</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ItemText">
+        <item name="fontFamily">@font/montserrat_500</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextContentSmall">
+        <item name="android:textSize">10sp</item>
         <item name="fontFamily">@font/montserrat_500</item>
         <item name="android:textColor">@color/black</item>
     </style>
@@ -59,6 +79,11 @@
     <style name="TextContent2">
         <item name="android:textSize">13sp</item>
         <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextContentBold">
+        <item name="fontFamily">@font/montserrat_semi_bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -83,8 +108,8 @@
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/primary</item>
         <item name="fontFamily">@font/montserrat_500</item>
-        <item name="android:layout_height">50dp</item>
-        <item name="cornerRadius">12dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="cornerRadius">8dp</item>
     </style>
 
     <style name="CommonButton2" >

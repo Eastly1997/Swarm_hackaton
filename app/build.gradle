@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.lakbay.pamayanan"
         minSdkVersion 26
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -37,33 +37,34 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.lakbay.pamayanan'
 }
 
 dependencies {
 
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.gms:play-services-ads:21.4.0'
+    implementation 'com.google.android.gms:play-services-ads:22.1.0'
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.3'
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
-    implementation 'com.google.firebase:firebase-appcheck-playintegrity:16.1.1'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.7'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity:17.0.1'
     implementation 'com.firebaseui:firebase-ui-storage:3.2.1'
     implementation 'com.google.code.gson:gson:2.9.0'
-    implementation 'com.google.firebase:firebase-appcheck-debug:16.1.1'
+    implementation 'com.google.firebase:firebase-appcheck-debug:17.0.1'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
     testImplementation 'junit:junit:4.+'

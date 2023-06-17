@@ -9,11 +9,14 @@
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/background_gradient.xml" value="0.174" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/background_round.xml" value="0.1" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/circular_view.xml" value="0.1715" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/ic_add.xml" value="0.1065" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/ic_bookmark_on.xml" value="0.1665" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/ic_launcher_background.xml" value="0.174" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/ic_minus.xml" value="0.1065" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/progress_curved_end.xml" value="0.1925" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/radio_selector.xml" value="0.163" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/round_background.xml" value="0.1" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/round_background_white.xml" value="0.1465" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/round_view_no_padding.xml" value="0.1" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/rounded_view.xml" value="0.1665" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/drawable/splash_background.xml" value="0.174" />
@@ -28,7 +31,7 @@
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_map_view.xml" value="0.1" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_phone_authentication.xml" value="0.264" />
-        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_product_detail.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_product_detail.xml" value="0.264" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_provisioning.xml" value="0.13178294573643412" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_register_user.xml" value="0.20619658119658119" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/activity_restaurant.xml" value="0.1" />
@@ -43,6 +46,8 @@
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/fragment_register_user.xml" value="0.2" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/fragment_welcome.xml" value="0.12740487387772553" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/header_product.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_add_ons.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_add_ons_list.xml" value="0.536" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_category_horizontal.xml" value="0.20521590423257802" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_cuisine.xml" value="0.4" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_feed.xml" value="0.264" />
@@ -55,8 +60,10 @@
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_product.xml" value="0.264" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_restaurant_product.xml" value="0.264" />
         <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_target.xml" value="0.264" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_variation.xml" value="0.2" />
+        <entry key="..\:/Users/Wesley/AndroidStudioProjects/app/src/main/res/layout/item_variation_list.xml" value="0.4" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK" />
 </project>
